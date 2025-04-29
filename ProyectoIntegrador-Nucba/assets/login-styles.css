@@ -1,0 +1,142 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  background-color: #1f3c57;
+  padding: 5px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 550px;
+  height: 500px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 5px 10px 50px;
+}
+
+.container-about {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 80%;
+  gap: 25px;
+}
+
+.bienvenido {
+  font-size: 50px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.email,
+.password {
+  border-radius: 5px;
+}
+
+input {
+  border: 1px solid grey;
+  width: 100%;
+  height: 20px;
+  padding: 20px;
+  background-color: rgb(224, 224, 224);
+  border-radius: 10px;
+}
+
+.r-contrasena {
+  display: flex;
+  width: 100%;
+  color: black;
+  align-items: center;
+  justify-content: center;
+}
+
+.list-password {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  list-style: none;
+}
+
+.list-password a {
+  text-decoration: none;
+  color: black;
+}
+
+.check {
+  display: flex;
+  align-items: center;
+}
+
+.section-buttons {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 15px;
+}
+
+.button-login {
+  background-color: #1f3c57;
+  padding: 10px 6rem;
+  border-radius: 20px;
+  color: white;
+  font-size: 20px;
+}
+
+.section-buttons a {
+  text-decoration: none;
+  color: black;
+}
+
+.register-volver {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.register-volver span {
+  color: #ffffff;
+  background-color: #1f3c57;
+
+  padding: 3px;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+@media (max-width: 768px) {
+  .container {
+    height: 80%;
+  }
+  .list-password {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .formulario input {
+    height: auto;
+  }
+}

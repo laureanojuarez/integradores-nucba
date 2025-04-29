@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lautech</title>
+    <link rel="stylesheet" href="/assets/styles.css" />
+    <link rel="stylesheet" href="/assets/animaciones.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <img src="/assets/img/logo.png" alt="" />
+      </div>
+
+      <div class="navbar">
+        <input type="checkbox" id="toggle-menu" />
+        <label for="toggle-menu"><i class="fa-solid fa-bars"></i></label>
+        <ul class="navbar-list">
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#novedades">Novedades</a></li>
+          <li><a href="#contact">Contacto</a></li>
+          <li><a href="login.html">Login</a></li>
+        </ul>
+      </div>
+    </header>
+
+    <main id="inicio">
+      <section class="hero">
+        <div class="hero-about">
+          <h2 class="hero-subtitle">Computacion</h2>
+          <h1 class="hero-title">Lautech</h1>
+          <p class="hero-parrafo">
+            En Lautech tenemos todo lo que necesitas relacionado en electronica
+            para equipar tu oficina o estudio.
+          </p>
+        </div>
+        <div class="hero-logo">
+          <img src="/assets/img/logo.png" />
+        </div>
+      </section>
+
+      <section id="novedades">
+        <div class="cards-about">
+          <h3 class="t-novedades">Novedades</h3>
+          <div class="cards">
+            <div class="card1">
+              <span class="envio-gratis">ENVIO GRATIS</span>
+              <div class="img">
+                <img src="/assets/img/5600g.png" alt="Ryzen 5 5600g" />
+              </div>
+              <div class="card1-bottom">
+                <h2>Ryzen 5 5000</h2>
+                <p>$ 180.000</p>
+                <button class="button">COMPRAR</button>
+              </div>
+            </div>
+            <div class="card2">
+              <span class="envio-gratis">ENVIO GRATIS</span>
+              <div class="img">
+                <img src="/assets/img/i512400f.png" alt="" />
+              </div>
+              <div class="card2-bottom">
+                <h2>i5 12400F</h2>
+                <p>$ 210.000</p>
+                <button class="button">COMPRAR</button>
+              </div>
+            </div>
+            <div class="card3">
+              <span class="envio-gratis">ENVIO GRATIS</span>
+              <div class="img">
+                <img src="/assets/img/3060TiX2_set.png" alt="" />
+              </div>
+              <div class="card3-bottom">
+                <h2>RTX 3060 Inno3D 12GB</h2>
+                <p>$ 310.000</p>
+                <button class="button">COMPRAR</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-beneficios" id="contact">
+        <h3>Recibi todas las oferta</h3>
+        <p>
+          ¿Querés recibir nuestras ofertas? ¡Registrate ya mismo y comenzá a
+          disfrutarlas!
+        </p>
+        <!-- <input type="email" placeholder="Enter your email" /> -->
+        <form class="input-container">
+          <input type="email" name="email" id="email" />
+          <i class="fa-solid fa-arrow-right"></i>
+        </form>
+      </section>
+
+      <footer>
+        <section id="contacto">
+          <div class="categoria1">
+            <h3 class="h3">Categorias</h3>
+            <ul class="footer-list">
+              <li><a href="#">Inicio</a></li>
+              <li><a href="#">Productos</a></li>
+              <li><a href="#">Como llego?</a></li>
+              <li><a href="#">Contacto</a></li>
+              <li><a href="#">Metodos de pago</a></li>
+            </ul>
+          </div>
+
+          <div class="categoria2">
+            <h3 class="h3">Contactanos</h3>
+            <ul class="footer-list">
+              <li><i class="fa-brands fa-whatsapp"></i> Whatsapp</li>
+              <li><i class="fa-solid fa-phone"></i> Telefono</li>
+              <li class="formulario">
+                <i class="fa-regular fa-envelope"></i>
+                <form class="form">
+                  <label for="email">Mandanos un mail</label>
+                  <input
+                    type="email"
+                    id="email"
+                    placeholder="laureano@gmail.com"
+                  />
+                </form>
+              </li>
+              <li><i class="fa-solid fa-location-dot"></i> Direccion</li>
+              <li></li>
+            </ul>
+          </div>
+          <div class="categoria3">
+            <div class="categoria-about">
+              <h3 class="h3">Sigamos Conectados</h3>
+              <div class="redes">
+                <i class="fa-brands fa-instagram"></i>
+                <i class="fa-brands fa-facebook"></i>
+                <i class="fa-brands fa-twitter"></i>
+              </div>
+            </div>
+          </div>
+        </section>
+        <div class="iframe-mapa">
+          <div style="width: 100%">
+            <iframe
+              width="100%"
+              height="600"
+              frameborder="0"
+              scrolling="no"
+              marginheight="0"
+              marginwidth="0"
+              src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=es&amp;q=cafferata%20rosario+(Lautech)&amp;t=&amp;z=17&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+              ><a href="https://www.gps.ie/car-satnav-gps/">Sat Navs</a></iframe
+            >
+          </div>
+        </div>
+      </footer>
+    </main>
+  </body>
+</html>

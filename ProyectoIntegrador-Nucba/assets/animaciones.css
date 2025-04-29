@@ -1,0 +1,12 @@
+html {
+  scroll-padding-top: 65px;
+  scroll-behavior: smooth;
+}
+
+.card1:hover,
+.card2:hover,
+.card3:hover {
+  box-shadow: 3px 3px 50px #1f3c57;
+  border-radius: 5px;
+  width: 360px;
+}

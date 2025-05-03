@@ -1,14 +1,14 @@
 import React from "react";
 import { Hero } from "../../src/components/Hero/Hero";
 import { About } from "../../src/components/About/About";
-import { CardSection } from "../../src/components/CardSection/CardSection";
+import { ProductSection } from "../../src/components/ProductSection/ProductSection";
 
 export const HomePage = () => {
   return (
     <main>
       <Hero />
       <About />
-      <CardSection />
+      <ProductSection />
     </main>
   );
 };

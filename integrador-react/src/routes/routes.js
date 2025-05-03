@@ -4,6 +4,7 @@ import { Layout } from "../components/Layout/Layout";
 import { AboutPage } from "../../pages/About/About";
 import ProductsPage from "../../pages/Products/ProductsPage";
 import LoginPage from "../../pages/Login/Login";
+import ContactPage from "../../pages/Contact/ContactPage";
 
 export const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ export const router = createBrowserRouter([
       {
         path: "login",
         Component: LoginPage,
+      },
+      {
+        path: "contact",
+        Component: ContactPage,
       },
     ],
   },

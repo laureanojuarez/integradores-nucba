@@ -14,12 +14,14 @@ const Card = () => {
   );
 };
 
-export const CardSection = () => {
+export const ProductSection = () => {
   return (
-    <section className="w-full flex justify-center gap-2 p-16">
-      <Card />
-      <Card />
-      <Card />
+    <section className="flex flex-col w-full p-8 justify-center text-center gap-4">
+      <div className="flex justify-center items-center gap-2">
+        <Card />
+        <Card />
+        <Card />
+      </div>
       <Link to={"/products"}>
         <span>Ver mas</span>
       </Link>

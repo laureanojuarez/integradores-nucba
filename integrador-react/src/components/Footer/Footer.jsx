@@ -1,10 +1,7 @@
-export function Footer() {
+export const Footer = () => {
   return (
-    <footer>
-      <div className="w-full bg-gray-800 h-20 flex justify-center items-center flex-col">
-        <h1 className="text-white">Footer</h1>
-        <p className="text-white">Esta es una footer de prueba</p>
-      </div>
+    <footer className="bg-stone-800  flex  gap-2 items-center justify-evenly shadow-md">
+      my footer
     </footer>
   );
-}
+};

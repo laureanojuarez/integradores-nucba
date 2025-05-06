@@ -1,9 +1,17 @@
-import { RouterProvider } from "react-router";
+import { Outlet } from "react-router";
+import { Footer } from "./components/Footer/Footer";
+import { Header } from "./components/Header/Header";
+import Layout from "./components/Layout/Layout";
 import "./index.css";
-import { router } from "./routes/routes";
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <Layout>
+      <Header />
+      <Outlet />
+      <Footer />
+    </Layout>
+  );
 }
 
 export default App;

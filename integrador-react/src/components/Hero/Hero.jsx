@@ -1,9 +1,13 @@
-import FordEcosport from "./assets/fordecosport2016.jpg";
+import heroPanaderia from "../../assets/heroPanaderia.jpg";
 
 export const Hero = () => {
   return (
     <section className="">
-      <img src={FordEcosport} alt="Ford Ecosport" className="w-full h-full" />
+      <img
+        src={heroPanaderia}
+        alt="Portada Panaderia"
+        className="w-full h-150 object-fill"
+      />
     </section>
   );
 };

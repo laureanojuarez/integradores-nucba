@@ -5,6 +5,7 @@ import App from "./App";
 import ProductsPage from "../pages/Products/ProductsPage";
 import { HomePage } from "../pages/Home/Home";
 import { Provider } from "react-redux";
+import store from "./redux/store";
 
 const router = createBrowserRouter([
   {

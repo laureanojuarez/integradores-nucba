@@ -8,7 +8,7 @@ export const HomePage = () => {
     <main>
       <Hero />
       <About />
-      <ProductSection />
+      <ProductSection isProductPage={false} />
     </main>
   );
 };

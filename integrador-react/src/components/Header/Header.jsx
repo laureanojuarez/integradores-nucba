@@ -2,6 +2,7 @@ import { RiInstagramLine } from "@remixicon/react";
 import { useEffect, useState } from "react";
 import logoPanaderia from "../../assets/logo.png";
 import { Link } from "react-router";
+import { Cart } from "../Cart/Cart";
 
 export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -42,7 +43,7 @@ export const Header = () => {
         />
       </Link>
 
-      <nav>
+      <nav className="flex">
         <ul className="flex justify-center items-center gap-4 text-lg text-gray-800">
           <li>Home</li>
           <li>Contacto</li>

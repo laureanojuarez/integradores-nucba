@@ -1,22 +1,37 @@
+import { useDispatch } from "react-redux";
+import { useLocation } from "react-router";
+import { addToCart } from "../../redux/slices/cart/cartSlice";
+import Button from "../UI/Button/Button";
 import { RiAddCircleLine } from "@remixicon/react";
-import { Link } from "react-router";
 
-export const ProductCard = ({ name, desc, img, isProductPage }) => {
+export const ProductCard = ({ name, desc, img, id }) => {
+  const location = useLocation();
+  const isProductPage = location.pathname === "/productos";
+  const dispatch = useDispatch();
+
+  const handleToCart = () => {
+    dispatch(addToCart({ id, name, desc, img }));
+  };
+
   return (
-    <div className="gap-2 p-4 border-2 border-gray-300 rounded-lg shadow-md">
+    <div
+      className={`flex flex-col gap-2 p-4 border-2 border-gray-300 rounded-lg shadow-md ${
+        isProductPage ? "max-w-sm" : "max-w-xs"
+      }`}
+    >
       <h1 className="text-xl font-bold">{name}</h1>
       <img
-        src={img || "https://placehold.co/500x600"}
+        src={img || "https://placehold.co/500x500"}
         alt={name}
-        style={{ width: "350px" }}
+        className="w-full h-auto object-cover"
       />
       <p className="text-gray-600">{desc}</p>
 
       {isProductPage && (
-        <button className="mt-2 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300 flex items-center justify-center gap-2">
-          <RiAddCircleLine size={20} />
+        <Button onClick={handleToCart}>
+          <RiAddCircleLine size={28} />
           Agregar al carrito
-        </button>
+        </Button>
       )}
     </div>
   );

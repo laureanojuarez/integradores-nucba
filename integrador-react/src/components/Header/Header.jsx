@@ -2,7 +2,8 @@ import { RiInstagramLine } from "@remixicon/react";
 import { useEffect, useState } from "react";
 import logoPanaderia from "../../assets/logo.png";
 import { Link } from "react-router";
-import { Cart } from "../Cart/Cart";
+
+import { RiShoppingBagLine } from "@remixicon/react";
 
 export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -60,6 +61,7 @@ export const Header = () => {
           </li>
         </ul>
       </nav>
+      <RiShoppingBagLine className="absolute right-5" cursor={"pointer"} />
     </header>
   );
 };

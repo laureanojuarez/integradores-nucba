@@ -8,7 +8,7 @@ export default function ProductsPage() {
         <p className="text-lg text-gray-700">Welcome to the Products Page!</p>
       </div>
 
-      <ProductSection isProductPage={true} />
+      <ProductSection />
     </>
   );
 }

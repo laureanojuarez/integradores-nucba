@@ -1,28 +1,24 @@
-import { RiInstagramLine } from "@remixicon/react";
-import { useEffect, useState } from "react";
-import logoPanaderia from "../../assets/logo.png";
-import { Link } from "react-router";
-
 import { RiShoppingBagLine } from "@remixicon/react";
 import ModalCart from "./ModalCart/ModalCart";
 import { useDispatch } from "react-redux";
 import { toggleHiddenCart } from "../../redux/slices/cart/cartSlice";
 import { useSelector } from "react-redux";
+import { Navbar } from "./Navbar";
+import { Logo } from "./Logo";
+import { useEffect, useState } from "react";
 
 export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
-
     window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const dispatch = useDispatch();
 
   const handleCartClick = () => {
     dispatch(toggleHiddenCart());
@@ -39,42 +35,9 @@ export const Header = () => {
       }`}
     >
       <ModalCart />
-      <nav className="  text-black ">
-        <ul className="flex gap-4 text-lg text-gray-800">
-          <li>Empresa</li>
-          <Link to={"/productos"}>Productos</Link>
-        </ul>
-      </nav>
-      <Link
-        to={"/"}
-        className={`absolute transition-all duration-300 ${
-          isScrolled ? "top-[-15px] scale-80" : "top-4 scale-100"
-        }`}
-      >
-        <img
-          src={logoPanaderia}
-          alt="Logo de la panadería"
-          className={`h-auto w-32`}
-        />
-      </Link>
+      <Logo isScrolled={isScrolled} />
+      <Navbar />
 
-      <nav className="flex">
-        <ul className="flex justify-center items-center gap-4 text-lg text-gray-800">
-          <li>Home</li>
-          <li>Contacto</li>
-          <li>
-            <a
-              href="https://www.instagram.com/elterriblepanaderia/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Visítanos en Instagram"
-              className="hover:text-gray-600"
-            >
-              <RiInstagramLine size={24} />
-            </a>
-          </li>
-        </ul>
-      </nav>
       <RiShoppingBagLine
         className="absolute right-5"
         cursor={"pointer"}

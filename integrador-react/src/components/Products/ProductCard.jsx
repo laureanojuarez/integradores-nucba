@@ -23,7 +23,7 @@ export const ProductCard = ({ name, desc, img, id }) => {
       <img
         src={img || "https://placehold.co/500x500"}
         alt={name}
-        className="w-full h-auto object-cover"
+        className="w-full h-64 object-cover rounded-lg"
       />
       <p className="text-gray-600">{desc}</p>
 

@@ -6,6 +6,7 @@ import ProductsPage from "../pages/Products/ProductsPage";
 import { HomePage } from "../pages/Home/Home";
 import { Provider } from "react-redux";
 import store from "./redux/store";
+import ContactPage from "../pages/Contact/ContactPage";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: "productos",
         element: <ProductsPage />,
+      },
+      {
+        path: "contacto",
+        element: <ContactPage />,
       },
     ],
   },

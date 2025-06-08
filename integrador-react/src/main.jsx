@@ -3,10 +3,10 @@ import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import App from "./App";
 import ProductsPage from "../pages/Products/ProductsPage";
-import { HomePage } from "../pages/Home/Home";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import ContactPage from "../pages/Contact/ContactPage";
+import { HomePage } from "../pages/Home/HomePage";
 
 const router = createBrowserRouter([
   {
@@ -17,7 +17,6 @@ const router = createBrowserRouter([
         index: true,
         element: <HomePage />,
       },
-      {},
       {
         path: "productos",
         element: <ProductsPage />,

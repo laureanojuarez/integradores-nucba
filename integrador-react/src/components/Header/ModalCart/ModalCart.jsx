@@ -26,12 +26,14 @@ export default function ModalCart() {
     <AnimatePresence>
       {!hiddenCart && (
         <div
+          key="overlay"
           className="fixed inset-0 bg-black/50 z-40"
           onClick={handleToggleHiddenCart}
         />
       )}
       {!hiddenCart && (
         <motion.div
+          key="modal"
           className="fixed right-0 top-0 h-screen w-80 bg-white shadow-xl z-50 overflow-y-auto"
           onClick={(e) => e.stopPropagation()}
           initial={{ x: "100%" }}

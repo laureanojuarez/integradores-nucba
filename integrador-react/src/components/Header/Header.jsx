@@ -39,8 +39,7 @@ export const Header = () => {
       <Navbar />
 
       <RiShoppingBagLine
-        className="absolute right-5"
-        cursor={"pointer"}
+        className="text-2xl cursor-pointer hover:text-gray-600 transition-colors right-2 absolute md:hidden"
         onClick={handleCartClick}
       />
       {cartItemCount > 0 && <span>{cartItemCount}</span>}

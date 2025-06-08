@@ -6,7 +6,7 @@ export const Hero = () => {
       <img
         src={heroPanaderia}
         alt="Portada Panaderia"
-        className="w-full h-150 object-fill"
+        className="w-full h-96 object-cover"
       />
     </section>
   );

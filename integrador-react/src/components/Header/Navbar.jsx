@@ -3,7 +3,7 @@ import { Link } from "react-router";
 
 export const Navbar = () => {
   return (
-    <nav className="flex justify-evenly w-full">
+    <nav className="justify-evenly w-full hidden md:flex">
       <ul className="flex gap-4 text-lg text-gray-800">
         <li>Empresa</li>
         <li>

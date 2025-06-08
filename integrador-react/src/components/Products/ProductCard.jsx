@@ -20,11 +20,7 @@ export const ProductCard = ({ name, desc, img, id }) => {
       }`}
     >
       <h1 className="text-xl font-bold">{name}</h1>
-      <img
-        src={img || "https://placehold.co/500x500"}
-        alt={name}
-        className="w-full h-64 object-cover rounded-lg"
-      />
+      <img src={img} alt={name} className="w-64 h-64 object-cover rounded-lg" />
       <p className="text-gray-600">{desc}</p>
 
       {isProductPage && (

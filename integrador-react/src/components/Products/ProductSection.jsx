@@ -1,6 +1,6 @@
-import { Link, useLocation } from "react-router";
-import { ProductCard } from "./ProductCard";
-import { products } from "../../mock/products";
+import {Link, useLocation} from "react-router";
+import {ProductCard} from "./ProductCard";
+import {products} from "../../mock/products";
 
 export const ProductSection = () => {
   const location = useLocation();

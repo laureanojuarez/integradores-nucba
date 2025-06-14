@@ -1,4 +1,4 @@
-import FormFormik from "../../src/components/Form/Form";
+import FormFormik from "../../components/Form/Form";
 
 export default function ContactPage() {
   return (

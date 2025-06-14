@@ -1,6 +1,6 @@
-import { Formik, Form, Field } from "formik";
-import { initialValues } from "./formik/initial-values";
-import { InputField } from "./formik/InputField";
+import {Formik, Form} from "formik";
+import {initialValues} from "./formik/initial-values";
+import {InputField} from "./formik/InputField";
 
 export default function FormFormik() {
   return (

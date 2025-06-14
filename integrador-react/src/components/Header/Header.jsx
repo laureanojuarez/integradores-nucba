@@ -1,11 +1,11 @@
-import { RiShoppingBagLine } from "@remixicon/react";
-import ModalCart from "./ModalCart/ModalCart";
-import { useDispatch } from "react-redux";
-import { toggleHiddenCart } from "../../redux/slices/cart/cartSlice";
-import { useSelector } from "react-redux";
-import { Navbar } from "./Navbar";
-import { Logo } from "./Logo";
-import { useEffect, useState } from "react";
+import {RiShoppingBagLine} from "@remixicon/react";
+import ModalCart from "../ModalCart/ModalCart";
+import {useDispatch} from "react-redux";
+import {toggleHiddenCart} from "../../redux/slices/cart/cartSlice";
+import {useSelector} from "react-redux";
+import {Navbar} from "./Navbar";
+import {Logo} from "./Logo";
+import {useEffect, useState} from "react";
 
 export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -39,7 +39,7 @@ export const Header = () => {
       <Navbar />
 
       <RiShoppingBagLine
-        className="text-2xl cursor-pointer hover:text-gray-600 transition-colors right-2 absolute md:hidden"
+        className="text-2xl cursor-pointer hover:text-gray-600 transition-colors right-2 absolute"
         onClick={handleCartClick}
       />
       {cartItemCount > 0 && <span>{cartItemCount}</span>}

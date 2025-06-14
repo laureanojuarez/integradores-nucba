@@ -1,8 +1,7 @@
-import { Form, Formik } from "formik";
-import { loginInitialValues } from "./formik/initial-values";
-import { loginValidationSchema } from "./formik/validation-schema";
-import AuthInput from "../../src/components/UI/LoginInput/LoginInput";
-import { Link } from "react-router";
+import {Form, Formik} from "formik";
+import {loginInitialValues} from "./formik/initial-values";
+import {loginValidationSchema} from "./formik/validation-schema";
+import {Link} from "react-router";
 
 export default function LoginPage() {
   return (

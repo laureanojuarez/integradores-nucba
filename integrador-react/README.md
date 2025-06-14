@@ -1,12 +1,27 @@
-# React + Vite
+- Header con su navbar funcional en responsive con API Context o Redux Toolkit. ✅
+- Hero Representativo ✅
+- Breve apartado de about ✅
+- Seccion de cards ✅ Que lleve de alguna manera a la pagina de productos ✅
+- Footer ✅
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- Una pagina sobre nosotros ❌
+- Una pagina sobre productos que esten renderizados dinamicamente ✅
+  Logica de filtros ❌
+  Agregando productos al carrito ✅
+  Manejo de cantidades en el carrito ✅
+  borrar individualmente cada producto y realizar compra. ❌
+  ( Deben tener modal de confirmacion ) ❌
 
-Currently, two official plugins are available:
+- Pagina de contacto ✅
+  Formulario de contacto con los campos 'nombre', 'apellido', 'email' y 'asunto' (Utilizando formik) ❌
+  Utilizando Formik realizar la validacion del formulario de contacto ❌
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Todas las paginas vinculadas con react router 🟰
 
-## Expanding the ESLint configuration
+- Se debe poder persistir los productos en el carrito ❌
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+-- TAREAS OPCIONALES --
+Agregar un sistema de login y registro
+Agregar una pagina de checkout para realizar la compra
+Agregar una pagina de producto para cada compra individual
+Enviar mail desde formulario de contacto utilizando API's como MailJS

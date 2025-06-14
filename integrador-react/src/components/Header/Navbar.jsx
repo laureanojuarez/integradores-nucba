@@ -1,5 +1,7 @@
-import { RiInstagramLine } from "@remixicon/react";
-import { Link } from "react-router";
+import {RiUser2Line} from "@remixicon/react";
+import {RiUser3Line} from "@remixicon/react";
+import {RiInstagramLine} from "@remixicon/react";
+import {Link} from "react-router";
 
 export const Navbar = () => {
   return (
@@ -15,6 +17,11 @@ export const Navbar = () => {
         <li>Home</li>
         <li>
           <Link to={"/contacto"}>Contacto</Link>
+        </li>
+        <li>
+          <Link to={"/login"}>
+            <RiUser3Line size={24} />
+          </Link>
         </li>
         <li>
           <a

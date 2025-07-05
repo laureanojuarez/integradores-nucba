@@ -1,16 +1,13 @@
-import { Outlet } from "react-router";
-import { Footer } from "./components/Footer/Footer";
-import { Header } from "./components/Header/Header";
-import Layout from "./components/Layout/Layout";
+import {Header} from "./components/Header/Header";
+import {Hero} from "./components/Hero/Hero";
 import "./index.css";
 
 function App() {
   return (
-    <Layout>
+    <main>
       <Header />
-      <Outlet />
-      <Footer />
-    </Layout>
+      <Hero />
+    </main>
   );
 }
 

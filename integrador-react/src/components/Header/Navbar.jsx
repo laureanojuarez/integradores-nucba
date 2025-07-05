@@ -1,40 +1,17 @@
-import {RiUser2Line} from "@remixicon/react";
-import {RiUser3Line} from "@remixicon/react";
-import {RiInstagramLine} from "@remixicon/react";
-import {Link} from "react-router";
-
-export const Navbar = () => {
+export function Navbar() {
   return (
-    <nav className="justify-evenly w-full hidden md:flex">
-      <ul className="flex gap-4 text-lg text-gray-800">
-        <li>Empresa</li>
+    <nav className="flex w-full bg-blue-50 justify-center">
+      <ul className="flex gap-4">
         <li>
-          <Link to={"/productos"}>Productos</Link>
-        </li>
-      </ul>
-
-      <ul className="flex items-center gap-4 text-lg text-gray-800">
-        <li>Home</li>
-        <li>
-          <Link to={"/contacto"}>Contacto</Link>
+          <a href="/">Autos</a>
         </li>
         <li>
-          <Link to={"/login"}>
-            <RiUser3Line size={24} />
-          </Link>
+          <a href="/autos">Sobre nosotros</a>
         </li>
         <li>
-          <a
-            href="https://www.instagram.com/elterriblepanaderia/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Visítanos en Instagram"
-            className="hover:text-gray-600"
-          >
-            <RiInstagramLine size={24} />
-          </a>
+          <a href="/contacto">Autos destacados</a>
         </li>
       </ul>
     </nav>
   );
-};
+}

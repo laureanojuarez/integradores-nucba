@@ -1,13 +1,5 @@
-import heroPanaderia from "../../assets/heroPanaderia.jpg";
-
-export const Hero = () => {
+export function Hero() {
   return (
-    <section className="">
-      <img
-        src={heroPanaderia}
-        alt="Portada Panaderia"
-        className="w-full h-96 object-cover"
-      />
-    </section>
+    <div className="flex flex-col items-center justify-center h-[50vh] bg-gray-500"></div>
   );
-};
+}

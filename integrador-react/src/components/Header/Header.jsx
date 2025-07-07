@@ -28,7 +28,7 @@ export const Header = () => {
           />
           <Button
             linkto={"contacto"}
-            nombre={"Nombre"}
+            nombre={"Contacto"}
             bg={"bg-white"}
             hv={"hover:bg-blue-500"}
           />

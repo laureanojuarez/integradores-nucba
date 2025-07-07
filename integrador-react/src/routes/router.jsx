@@ -1,8 +1,9 @@
-import {createBrowserRouter} from "react-router";
+import { createBrowserRouter } from "react-router";
 import NotFoundPage from "../pages/NotFoundPage";
 import Products from "../pages/Products";
 import Layout from "../components/Layout";
 import HomePage from "../pages/HomePage";
+import ContactPage from "../pages/ContactPage";
 
 export const router = createBrowserRouter([
   {
@@ -14,8 +15,12 @@ export const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "productos",
+        path: "catalogo",
         element: <Products />,
+      },
+      {
+        path: "contacto",
+        element: <ContactPage />,
       },
     ],
   },

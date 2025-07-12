@@ -1,7 +1,7 @@
 export function Navbar() {
   return (
-    <nav className="flex">
-      <ul className="flex gap-4 w-full justify-between">
+    <nav className="flex w-full justify-center">
+      <ul className="flex gap-16 justify-between">
         <li>
           <a href="/">Autos</a>
         </li>

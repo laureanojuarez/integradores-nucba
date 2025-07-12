@@ -1,5 +1,5 @@
-import { ProductCard } from "../components/Products/ProductCard";
-import { autos } from "../mock/autos";
+import {ProductCard} from "../components/Products/ProductCard";
+import {autos} from "../mock/autos";
 
 export default function Products() {
   return (
@@ -10,6 +10,7 @@ export default function Products() {
         {autos.map((auto) => (
           <ProductCard
             key={auto.id}
+            id={auto.id}
             marca={auto.marca}
             modelo={auto.modelo}
             imagen={auto.imagen}

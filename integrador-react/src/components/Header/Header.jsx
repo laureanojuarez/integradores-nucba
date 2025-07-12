@@ -1,15 +1,14 @@
-import { Navbar } from "./Navbar";
-import { RiSearchLine } from "@remixicon/react";
-import { Button } from "../UI/Button";
+import {Navbar} from "./Navbar";
+import {RiSearchLine} from "@remixicon/react";
+import {Button} from "../UI/Button";
+import concesionariaIcon from "../../../public/images/icono.png";
 
 export const Header = () => {
   return (
-    <div className="max-w-5xl mx-auto w-full">
-      <header className="flex justify-between py-2 items-center">
+    <header className="fixed items-center flex flex-col w-full top-0 py-2 bg-white/50 mx-auto justify-center left-1/2 -translate-x-1/2 z-50">
+      <section className="flex w-full justify-evenly">
         <div className="flex gap-2">
-          <div className="bg-blue-200 p-2 rounded-2xl">
-            <h1>ConcesionariaAutos</h1>
-          </div>
+          <img src={concesionariaIcon} alt="" className="w-10 rounded-lg" />
           <div className="border rounded-xl flex items-center justify-center">
             <RiSearchLine className="text-gray-500 m-2" />
             <input
@@ -33,8 +32,8 @@ export const Header = () => {
             hv={"hover:bg-blue-500"}
           />
         </div>
-      </header>
+      </section>
       <Navbar />
-    </div>
+    </header>
   );
 };

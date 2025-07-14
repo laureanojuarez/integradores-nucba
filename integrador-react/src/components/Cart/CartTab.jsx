@@ -21,7 +21,10 @@ export const CartTab = ({closeCart}) => {
       >
         <div className="flex justify-between items-center border-b pb-4">
           <h2 className="text-xl font-semibold">Tu Carrito</h2>
-          <RiCloseLine className="cursor-pointer h-6 w-6" onClick={closeCart} />
+          <RiCloseLine
+            className="cursor-pointer w-8 mr-3"
+            onClick={closeCart}
+          />
         </div>
 
         <div className="flex-grow overflow-y-auto mt-4">
@@ -44,7 +47,7 @@ export const CartTab = ({closeCart}) => {
         </div>
 
         <div className="border-t pt-4">
-          <button className="w-full bg-blue-600 text-white py-2 rounded-md">
+          <button className="w-full bg-blue-600 text-white py-2 rounded-md cursor-pointer hover:bg-blue-700">
             Finalizar Compra
           </button>
         </div>

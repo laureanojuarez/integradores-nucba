@@ -1,20 +1,24 @@
 import {Navbar} from "./Navbar";
 import {RiSearchLine} from "@remixicon/react";
 import {Button} from "../UI/Button";
-import concesionariaIcon from "../../../public/images/icono.png";
 import {RiShoppingCart2Fill} from "@remixicon/react";
-import {useState} from "react";
 import {Link} from "react-router";
+import {useSelector} from "react-redux";
 
 export const Header = ({onCartClick}) => {
-  const [isCartOpen, setIsCartOpen] = useState(false);
+  const cartItems = useSelector((state) => state.cart.cartItems);
+
+  const totalQuantity = cartItems.reduce(
+    (total, item) => total + item.quantity,
+    0
+  );
 
   return (
     <header className="fixed items-center flex flex-col w-full top-0 py-2 bg-white/50 mx-auto justify-center left-1/2 -translate-x-1/2 z-50">
       <section className="flex w-full justify-evenly">
         <div className="flex gap-2">
           <Link to={"/"}>
-            <img src={concesionariaIcon} alt="" className="w-10 rounded-lg" />
+            <img src="/images/icono.png" alt="" className="w-10 rounded-lg" />
           </Link>
           <div className="border rounded-xl flex items-center justify-center">
             <RiSearchLine className="text-gray-500 m-2" />
@@ -43,6 +47,11 @@ export const Header = ({onCartClick}) => {
             onClick={onCartClick}
             className="absolute right-0 mr-8"
           />
+          {totalQuantity > 0 && (
+            <span className="absolute right-2 top-2 bg-red-500 text-white text-xs rounded-full px-1">
+              {totalQuantity}
+            </span>
+          )}
         </div>
       </section>
       <Navbar />

@@ -13,7 +13,7 @@ export const ProductCard = ({id, marca, modelo, precio, imagen}) => {
         <img
           src={imagen || "https://placehold.co/300x350"}
           alt={`${marca} ${modelo}`}
-          className="w-full h-48 object-cover"
+          className="w-64 h-48 object-cover"
         />
         <div className="absolute top-2 left-2 bg-blue-600 text-white px-2 py-1 rounded-md text-sm font-medium">
           {marca}

@@ -23,7 +23,7 @@ export default function ContactPage() {
   });
 
   return (
-    <main className="flex flex-col justify-center items-center gap-2">
+    <main className="flex flex-col justify-center items-center mt-16">
       <h1>Publica en nuestro concesionario!</h1>
       <section className="flex flex-wrap flex-col bg-gray-300 w-2xl p-2 gap-4 rounded-xl">
         <h1 className="text-2xl">Tus Datos</h1>

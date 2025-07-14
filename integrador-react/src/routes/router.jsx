@@ -1,9 +1,9 @@
-import { createBrowserRouter } from "react-router";
+import {createBrowserRouter} from "react-router";
 import NotFoundPage from "../pages/NotFoundPage";
-import Products from "../pages/Products";
 import Layout from "../components/Layout";
 import HomePage from "../pages/HomePage";
 import ContactPage from "../pages/ContactPage";
+import ProductsPage from "../pages/ProductsPage";
 
 export const router = createBrowserRouter([
   {
@@ -16,7 +16,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "catalogo",
-        element: <Products />,
+        element: <ProductsPage />,
       },
       {
         path: "contacto",

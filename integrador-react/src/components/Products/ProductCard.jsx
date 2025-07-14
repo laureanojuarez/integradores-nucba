@@ -1,11 +1,11 @@
-import {useDispatch} from "react-redux";
-import {addToCart} from "../../redux/cartSlice";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../redux/cartSlice";
 
-export const ProductCard = ({id, marca, modelo, precio, imagen}) => {
+export const ProductCard = ({ id, marca, modelo, precio, imagen }) => {
   const dispatch = useDispatch();
 
   const handleAddToCart = () => {
-    dispatch(addToCart({id, marca, modelo, precio}));
+    dispatch(addToCart({ id, marca, modelo, precio }));
   };
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 max-w-sm">
@@ -13,7 +13,7 @@ export const ProductCard = ({id, marca, modelo, precio, imagen}) => {
         <img
           src={imagen || "https://placehold.co/300x350"}
           alt={`${marca} ${modelo}`}
-          className="w-64 h-48 object-cover"
+          className="w-80 h-48 object-cover mx-auto"
         />
         <div className="absolute top-2 left-2 bg-blue-600 text-white px-2 py-1 rounded-md text-sm font-medium">
           {marca}

@@ -1,6 +1,6 @@
 export function Navbar() {
   return (
-    <nav className="flex w-full justify-center">
+    <nav className="w-4/5 max-w-6xl pl-12 justify-start hidden md:flex py-2">
       <ul className="flex gap-16 justify-between">
         <li>
           <a href="/">Autos</a>

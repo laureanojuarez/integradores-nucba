@@ -8,17 +8,17 @@ export function Hero() {
         <p className="text-2xl">Compra Online</p>
         <h1 className="text-3xl">Consegui tu proximo 0km hoy!</h1>
       </div>
-      <div className="w-full md:w-1/2 h-64 md:h-50 relative">
+      <div className="w-full md:w-1/2 h-64 md:h-96 relative ">
         <img
           src={Tracker}
           alt="Ford F-150"
-          className="absolute w-[60%] bottom-0 left-[5%] md:left-[5] z-10 transform scale-x-[-1]"
+          className="absolute w-[50%] sm:w-[40%] md:w-[60%] bottom-[30%] left-1/2 z-10 transform -translate-x-2/3 scale-x-[-1]"
         />
 
         <img
           src={territory}
           alt="Ford Territory"
-          className="absolute w-[55%] bottom-0 right-[5%] z-20 transform scale-x-[-1]"
+          className="absolute w-[45%] sm:w-[35%] md:w-[55%] bottom-[15%] left-1/2 right-[5%] z-20 transform -translate-x-1/3 scale-x-[-1]"
         />
       </div>
     </section>

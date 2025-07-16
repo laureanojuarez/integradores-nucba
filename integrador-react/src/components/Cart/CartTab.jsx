@@ -3,9 +3,11 @@ import {RiCloseLine} from "@remixicon/react";
 import {RiDeleteBin3Fill} from "@remixicon/react";
 import {useDispatch} from "react-redux";
 import {removeFromCart} from "../../redux/cartSlice";
+import {useCart} from "../../hooks/useCart";
 
 export const CartTab = ({closeCart}) => {
   const dispatch = useDispatch();
+  const {handleClearCart} = useCart();
 
   const cartItems = useSelector((state) => state.cart.cartItems);
 
@@ -46,7 +48,13 @@ export const CartTab = ({closeCart}) => {
           )}
         </div>
 
-        <div className="border-t pt-4">
+        <button
+          className="w-full bg-red-200 py-2 rounded-md cursor-pointer hover:bg-red-600"
+          onClick={handleClearCart}
+        >
+          Borrar carrito
+        </button>
+        <div className="flex flex-col border-t pt-4 gap-2">
           <button className="w-full bg-blue-600 text-white py-2 rounded-md cursor-pointer hover:bg-blue-700">
             Finalizar Compra
           </button>

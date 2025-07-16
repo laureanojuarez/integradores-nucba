@@ -1,6 +1,7 @@
-import { useState } from "react";
-import { ProductCard } from "../components/Products/ProductCard";
-import { autos } from "../mock/autos";
+import {useState} from "react";
+import {ProductCard} from "../../components/Products/ProductCard";
+import {autos} from "../../mock/autos";
+import {Link} from "react-router";
 
 const INITIAL_ITEMS_TO_SHOW = 6;
 const ITEMS_TO_ADD = 3;

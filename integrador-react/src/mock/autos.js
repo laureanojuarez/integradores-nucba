@@ -17,14 +17,14 @@ export const autos = [
     id: 3,
     marca: "Peugeot",
     modelo: "208",
-    imagen: "./images/marcas/peugeot/208.png",
+    imagen: "/images/marcas/peugeot/208.png",
     precio: 25000,
   },
   {
     id: 4,
     marca: "Audi",
     modelo: "A4",
-    imagen: "./images/marcas/audi/audia4.png",
+    imagen: "/images/marcas/audi/audia4.png",
     precio: 55000,
   },
   {

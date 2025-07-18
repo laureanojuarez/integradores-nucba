@@ -2,14 +2,20 @@ import {useSelector} from "react-redux";
 import {RiCloseLine} from "@remixicon/react";
 import {RiDeleteBin3Fill} from "@remixicon/react";
 import {useDispatch} from "react-redux";
-import {removeFromCart} from "../../redux/cartSlice";
+import {addToCart, removeFromCart} from "../../redux/cartSlice";
 import {useCart} from "../../hooks/useCart";
+import {RiAddLine} from "@remixicon/react";
+import {RiSubtractLine} from "@remixicon/react";
 
 export const CartTab = ({closeCart}) => {
   const dispatch = useDispatch();
   const {handleClearCart} = useCart();
 
   const cartItems = useSelector((state) => state.cart.cartItems);
+
+  const handleToAdd = (id) => {
+    dispatch(addToCart({id}));
+  };
 
   const handleDelete = (id) => {
     dispatch(removeFromCart({id}));
@@ -38,11 +44,22 @@ export const CartTab = ({closeCart}) => {
                 className="flex justify-between items-center mb-4"
                 key={item.id}
               >
-                <div className="text-center">
-                  <p>{item.modelo}</p>
-                  <p>${item.precio.toLocaleString()}</p>
+                <div className="flex">
+                  <img src={item.imagen} alt="" width={100} />
+                  <div className="text-center">
+                    <p>
+                      {item.marca} {item.modelo}
+                    </p>
+                    <p>${item.precio.toLocaleString()}</p>
+                  </div>
                 </div>
-                <RiDeleteBin3Fill onClick={() => handleDelete(item.id)} />
+                <div className="flex items-center gap-2">
+                  <RiDeleteBin3Fill
+                    className="w-6 h-6 text-red-500 cursor-pointer"
+                    cursor={"pointer"}
+                    onClick={() => handleDelete(item.id)}
+                  />
+                </div>
               </div>
             ))
           )}

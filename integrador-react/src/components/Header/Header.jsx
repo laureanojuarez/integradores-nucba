@@ -1,12 +1,12 @@
-import { Navbar } from "./Navbar";
-import { RiSearchLine } from "@remixicon/react";
-import { Button } from "../UI/Button";
-import { RiShoppingCart2Fill } from "@remixicon/react";
-import { Link } from "react-router";
-import { useSelector } from "react-redux";
-import { RiMenuFill } from "@remixicon/react";
+import {Navbar} from "./Navbar";
+import {RiSearchLine} from "@remixicon/react";
+import {Button} from "../UI/Button";
+import {RiShoppingCart2Fill} from "@remixicon/react";
+import {Link} from "react-router";
+import {useSelector} from "react-redux";
+import {RiMenuFill} from "@remixicon/react";
 
-export const Header = ({ onCartClick }) => {
+export const Header = ({onCartClick}) => {
   const cartItems = useSelector((state) => state.cart.cartItems);
 
   const totalQuantity = cartItems.reduce(
@@ -36,12 +36,16 @@ export const Header = ({ onCartClick }) => {
             nombre={"Catalogo"}
             bg={"bg-blue-500"}
             hv={"hover:bg-white"}
+            txt={"text-white"}
+            hvtxt={"hover:text-blue-500"}
           />
           <Button
             linkto={"contacto"}
             nombre={"Contacto"}
             bg={"bg-white"}
             hv={"hover:bg-blue-500"}
+            txt={"text-blue-500"}
+            hvtxt={"hover:text-white"}
           />
           <RiShoppingCart2Fill
             cursor={"pointer"}

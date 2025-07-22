@@ -1,24 +1,30 @@
-import {useSelector} from "react-redux";
-import {RiCloseLine} from "@remixicon/react";
-import {RiDeleteBin3Fill} from "@remixicon/react";
-import {useDispatch} from "react-redux";
-import {addToCart, removeFromCart} from "../../redux/cartSlice";
-import {useCart} from "../../hooks/useCart";
-import {RiAddLine} from "@remixicon/react";
-import {RiSubtractLine} from "@remixicon/react";
+import { useSelector } from "react-redux";
+import { RiCloseLine } from "@remixicon/react";
+import { RiDeleteBin3Fill } from "@remixicon/react";
+import { useDispatch } from "react-redux";
+import { removeFromCart } from "../../redux/cartSlice";
+import { useCart } from "../../hooks/useCart";
+import { useNavigate } from "react-router";
 
-export const CartTab = ({closeCart}) => {
+export const CartTab = ({ closeCart }) => {
   const dispatch = useDispatch();
-  const {handleClearCart} = useCart();
+  const navigate = useNavigate();
+  const { handleClearCart } = useCart();
 
   const cartItems = useSelector((state) => state.cart.cartItems);
 
-  const handleToAdd = (id) => {
-    dispatch(addToCart({id}));
+  const handleDelete = (id) => {
+    dispatch(removeFromCart({ id }));
   };
 
-  const handleDelete = (id) => {
-    dispatch(removeFromCart({id}));
+  const handleFinalizarCompra = () => {
+    if (cartItems.length === 0) {
+      alert("El carrito esta vacio.");
+      return;
+    }
+
+    navigate("/checkout");
+    closeCart();
   };
 
   return (
@@ -35,7 +41,7 @@ export const CartTab = ({closeCart}) => {
           />
         </div>
 
-        <div className="flex-grow overflow-y-auto mt-4">
+        <div className="flex flex-col justify-between h-full overflow-y-auto mt-4 py-2">
           {cartItems.length === 0 ? (
             <p className="text-gray-500">El carrito esta vacio.</p>
           ) : (
@@ -63,16 +69,19 @@ export const CartTab = ({closeCart}) => {
               </div>
             ))
           )}
+          <button
+            className="w-full bg-red-200 py-2 rounded-md cursor-pointer hover:bg-red-600"
+            onClick={handleClearCart}
+          >
+            Borrar carrito
+          </button>
         </div>
 
-        <button
-          className="w-full bg-red-200 py-2 rounded-md cursor-pointer hover:bg-red-600"
-          onClick={handleClearCart}
-        >
-          Borrar carrito
-        </button>
         <div className="flex flex-col border-t pt-4 gap-2">
-          <button className="w-full bg-blue-600 text-white py-2 rounded-md cursor-pointer hover:bg-blue-700">
+          <button
+            className="w-full bg-blue-600 text-white py-2 rounded-md cursor-pointer hover:bg-blue-700"
+            onClick={handleFinalizarCompra}
+          >
             Finalizar Compra
           </button>
         </div>

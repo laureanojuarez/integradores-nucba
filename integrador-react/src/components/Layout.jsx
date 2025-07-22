@@ -1,9 +1,9 @@
-import {Outlet} from "react-router";
-import {Header} from "./Header/Header";
-import {Footer} from "./Footer/Footer";
-import {CartTab} from "./Cart/CartTab";
-import {useState} from "react";
-import {Toaster} from "sonner";
+import { Outlet } from "react-router";
+import { Header } from "./Header/Header";
+import { Footer } from "./Footer/Footer";
+import { CartTab } from "./Cart/CartTab";
+import { useState } from "react";
+import { Toaster } from "sonner";
 
 export default function Layout() {
   const [isCartIsOpen, setIsCartOpen] = useState(false);
@@ -18,7 +18,7 @@ export default function Layout() {
       <main className="flex-1 mt-20">
         <Outlet />
       </main>
-      <Toaster richColors position="bottom-right" />
+      <Toaster richColors position="bottom-left" />
       <Footer />
     </div>
   );

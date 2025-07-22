@@ -1,15 +1,18 @@
-import {useParams} from "react-router";
-import {autos} from "../../../mock/autos";
+import { useParams } from "react-router";
+import { autos } from "../../../mock/autos";
 
 export function ProductMarca() {
-  const {marca} = useParams();
+  const { marca } = useParams();
 
   return (
-    <div className="flex items-center justify-center min-h-screen max-w-6xl mx-auto p-4">
+    <div className="flex items-center justify-center max-w-6xl mx-auto p-4">
       {autos.map(
         (auto) =>
           auto.marca.toLowerCase() === marca.toLowerCase() && (
-            <div key={auto.id} className="flex flex-col items-center p-4">
+            <div
+              key={auto.id}
+              className="flex flex-col items-center py-24 px-4"
+            >
               <img
                 src={auto.imagen}
                 alt={`${auto.marca} ${auto.modelo}`}

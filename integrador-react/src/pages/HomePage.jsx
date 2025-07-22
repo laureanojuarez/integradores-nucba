@@ -1,6 +1,6 @@
-import { About } from "../components/About/about";
-import { Hero } from "../components/Hero/Hero";
-import { ProductSection } from "../components/Products/ProductSection";
+import {About} from "../components/About/about";
+import {Hero} from "../components/Hero/Hero";
+import {ProductSection} from "../components/Products/ProductSection";
 
 export default function HomePage() {
   return (

@@ -1,8 +1,8 @@
-import { useParams } from "react-router";
-import { autos } from "../../../mock/autos";
+import {useParams} from "react-router-dom";
+import {autos} from "../../../mock/autos";
 
 export function ProductMarca() {
-  const { marca } = useParams();
+  const {marca} = useParams();
 
   return (
     <div className="flex items-center justify-center max-w-6xl mx-auto p-4">

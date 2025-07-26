@@ -1,5 +1,5 @@
-import { useSelector } from "react-redux";
-import { Link } from "react-router";
+import {useSelector} from "react-redux";
+import {Link} from "react-router-dom";
 
 export default function CheckoutPage() {
   const cartItems = useSelector((state) => state.cart.cartItems);

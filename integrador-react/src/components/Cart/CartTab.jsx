@@ -1,20 +1,27 @@
-import { useSelector } from "react-redux";
-import { RiCloseLine } from "@remixicon/react";
-import { RiDeleteBin3Fill } from "@remixicon/react";
-import { useDispatch } from "react-redux";
-import { removeFromCart } from "../../redux/cartSlice";
-import { useCart } from "../../hooks/useCart";
-import { useNavigate } from "react-router";
+import {useSelector} from "react-redux";
+import {RiCloseLine} from "@remixicon/react";
+import {RiDeleteBin3Fill} from "@remixicon/react";
+import {useDispatch} from "react-redux";
+import {
+  removeFromCart,
+  toggleHiddenCart,
+} from "../../redux/slices/cart/cartSlice";
+import {useCart} from "../../hooks/useCart";
+import {useNavigate} from "react-router-dom";
 
-export const CartTab = ({ closeCart }) => {
+export const CartTab = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { handleClearCart } = useCart();
+  const {handleClearCart} = useCart();
 
   const cartItems = useSelector((state) => state.cart.cartItems);
 
   const handleDelete = (id) => {
-    dispatch(removeFromCart({ id }));
+    dispatch(removeFromCart({id}));
+  };
+
+  const handleCloseCart = () => {
+    dispatch(toggleHiddenCart());
   };
 
   const handleFinalizarCompra = () => {
@@ -24,11 +31,11 @@ export const CartTab = ({ closeCart }) => {
     }
 
     navigate("/checkout");
-    closeCart();
+    handleCloseCart();
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 z-50" onClick={closeCart}>
+    <div className="fixed inset-0 bg-black/50 z-50" onClick={handleCloseCart}>
       <div
         className="fixed top-0 right-0 w-80 h-full bg-white shadow-lg p-4 flex flex-col"
         onClick={(e) => e.stopPropagation()}
@@ -37,7 +44,7 @@ export const CartTab = ({ closeCart }) => {
           <h2 className="text-xl font-semibold">Tu Carrito</h2>
           <RiCloseLine
             className="cursor-pointer w-8 mr-3"
-            onClick={closeCart}
+            onClick={handleCloseCart}
           />
         </div>
 

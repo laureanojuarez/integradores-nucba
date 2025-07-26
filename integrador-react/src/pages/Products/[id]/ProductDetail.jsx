@@ -1,10 +1,10 @@
-import { useParams } from "react-router";
-import { autos } from "../../../mock/autos";
-import { useCart } from "../../../hooks/useCart";
+import {useParams} from "react-router-dom";
+import {autos} from "../../../mock/autos";
+import {useCart} from "../../../hooks/useCart";
 
 export const ProductDetail = () => {
-  const { marca, modelo } = useParams();
-  const { handleAddToCart } = useCart();
+  const {marca, modelo} = useParams();
+  const {handleAddToCart} = useCart();
 
   const auto = autos.find(
     (auto) =>

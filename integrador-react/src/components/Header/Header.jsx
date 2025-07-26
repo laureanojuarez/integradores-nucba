@@ -2,25 +2,31 @@ import {Navbar} from "./Navbar";
 import {RiSearchLine} from "@remixicon/react";
 import {Button} from "../UI/Button";
 import {RiShoppingCart2Fill} from "@remixicon/react";
-import {Link} from "react-router";
+import {Link} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {RiMenuFill} from "@remixicon/react";
 import {RiUserLine} from "@remixicon/react";
 import {useState} from "react";
 import {RiCloseLine} from "@remixicon/react";
+import {useDispatch} from "react-redux";
+import {CartTab} from "../Cart/CartTab";
+import {toggleHiddenCart} from "../../redux/slices/cart/cartSlice";
+import {MobileMenu} from "./MobileMenu";
 
-export const Header = ({onCartClick}) => {
+export const Header = () => {
+  const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.cartItems);
+  const hidden = useSelector((state) => state.cart.hidden);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
 
   const totalQuantity = cartItems.reduce(
     (total, item) => total + item.quantity,
     0
   );
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   return (
     <>
@@ -58,8 +64,7 @@ export const Header = ({onCartClick}) => {
             />
             <RiShoppingCart2Fill
               cursor={"pointer"}
-              onClick={onCartClick}
-              className=""
+              onClick={() => dispatch(toggleHiddenCart())}
             />
             {totalQuantity > 0 && (
               <span className="absolute right-2 top-2 bg-red-500 text-white text-xs rounded-full px-1">
@@ -84,38 +89,8 @@ export const Header = ({onCartClick}) => {
         <Navbar />
       </header>
 
-      {/* Menú Mobile */}
-      <div
-        className={`fixed top-0 left-0 w-full h-full bg-white z-40 transform ${
-          isMenuOpen ? "translate-x-0" : "-translate-x-full"
-        } transition-transform duration-300 ease-in-out md:hidden`}
-      >
-        <nav className="h-full flex flex-col justify-center items-center">
-          <ul className="flex flex-col gap-8 text-center text-2xl">
-            <li>
-              <Link to="/catalogo" onClick={toggleMenu}>
-                Autos
-              </Link>
-            </li>
-            <li>
-              <Link to="/autos" onClick={toggleMenu}>
-                Sobre nosotros
-              </Link>
-            </li>
-            <li>
-              <Link to="/contacto" onClick={toggleMenu}>
-                Autos destacados
-              </Link>
-            </li>
-            <li className="flex items-center gap-2 pt-4 border-t border-gray-200">
-              <RiUserLine />
-              <Link to="/login" onClick={toggleMenu}>
-                Iniciar Sesión
-              </Link>
-            </li>
-          </ul>
-        </nav>
-      </div>
+      {!hidden && <CartTab />}
+      <MobileMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
     </>
   );
 };

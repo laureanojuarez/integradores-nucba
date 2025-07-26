@@ -1,5 +1,5 @@
 import {useDispatch} from "react-redux";
-import {addToCart, clearCart} from "../redux/cartSlice";
+import {addToCart, clearCart} from "../redux/slices/cart/cartSlice";
 import {toast} from "sonner";
 import {useSelector} from "react-redux";
 

@@ -1,10 +1,11 @@
-import {Formik, Form, Field, ErrorMessage} from "formik";
-import {Link, useNavigate} from "react-router-dom";
-import {toast} from "sonner";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
-import {registerInitialValues} from "./formik/initial-values";
-import {registerValidationSchema} from "./formik/validation-schema";
-import {createUser} from "./services/services";
+import { registerInitialValues } from "./formik/initial-values";
+import { registerValidationSchema } from "./formik/validation-schema";
+import { createUser } from "./services/services";
+import { useEffect } from "react";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ const Register = () => {
         <Formik
           initialValues={registerInitialValues}
           validationSchema={registerValidationSchema}
-          onSubmit={async (values, {setSubmitting}) => {
+          onSubmit={async (values, { setSubmitting }) => {
             try {
               await createUser(values.nombre, values.email, values.password);
               toast.success("Usuario creado correctamente");
@@ -42,7 +43,7 @@ const Register = () => {
             }
           }}
         >
-          {({isSubmitting}) => (
+          {({ isSubmitting }) => (
             <Form className="space-y-4">
               {/* Nombre */}
               <div>

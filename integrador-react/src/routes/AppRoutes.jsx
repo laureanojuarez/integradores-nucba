@@ -1,14 +1,14 @@
 import { Routes, Route } from "react-router-dom"; // Quitar BrowserRouter
-import CheckoutPage from "../../pages/Chockout/CheckoutPage";
-import NotFoundPage from "../../pages/NotFoundPage";
-import HomePage from "../../pages/HomePage";
-import ProductsPage from "../../pages/Products/ProductsPage";
-import { ProductMarca } from "../../pages/Products/[marca]/ProductMarca";
-import { ProductDetail } from "../../pages/Products/[id]/ProductDetail";
-import ContactPage from "../../pages/ContactPage";
-import { LoginPage } from "../../pages/Login/LoginPage";
-import Register from "../../pages/Register/Register";
+import CheckoutPage from "../pages/Chockout/CheckoutPage";
+import NotFoundPage from "../pages/NotFoundPage";
+import HomePage from "../pages/HomePage";
+import ProductsPage from "../pages/Products/ProductsPage";
+import { ProductMarca } from "../pages/Products/[marca]/ProductMarca";
+import ContactPage from "../pages/ContactPage";
+import { LoginPage } from "../pages/Login/LoginPage";
+import Register from "../pages/Register/Register";
 import ProtectedRoute from "./ProtectedRoute";
+import { ProductDetail } from "../pages/Products/[id]/ProductDetail";
 
 function AppRoutes() {
   return (

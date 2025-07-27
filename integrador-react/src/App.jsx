@@ -1,7 +1,7 @@
-import {Header} from "./components/Header/Header";
-import {Footer} from "./components/Footer/Footer";
+import { Header } from "./components/Header/Header";
+import { Footer } from "./components/Footer/Footer";
 import Layout from "./components/Layout/Layout";
-import AppRoutes from "./components/routes/AppRoutes";
+import AppRoutes from "./routes/AppRoutes";
 
 function App() {
   return (

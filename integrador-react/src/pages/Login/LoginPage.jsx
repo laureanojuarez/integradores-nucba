@@ -1,18 +1,19 @@
-import {Formik, Form, Field, ErrorMessage} from "formik";
-import {Link, useLocation, useNavigate} from "react-router-dom";
-import {RiEyeLine, RiEyeOffLine} from "@remixicon/react";
-import {useState} from "react";
-import {useDispatch} from "react-redux";
-import {toast} from "sonner";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { RiEyeLine, RiEyeOffLine } from "@remixicon/react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { toast } from "sonner";
 
-import {loginInitialValues} from "./formik/initial-values";
-import {loginValidationSchema} from "./formik/validation-schema";
-import {loginUser} from "./services/services";
-import {setCurrentUser} from "../../redux/slices/user/userSlice";
+import { loginInitialValues } from "./formik/initial-values";
+import { loginValidationSchema } from "./formik/validation-schema";
+import { loginUser } from "./services/services";
+import { setCurrentUser } from "../../redux/slices/user/userSlice";
+import AuthInput from "../../components/UI/LoginInput";
 
 export function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
-  const {state} = useLocation();
+  const { state } = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate(); // ✅ Agregado
 
@@ -29,7 +30,7 @@ export function LoginPage() {
         <Formik
           initialValues={loginInitialValues}
           validationSchema={loginValidationSchema}
-          onSubmit={async (values, {setSubmitting}) => {
+          onSubmit={async (values, { setSubmitting }) => {
             try {
               console.log("🔍 Enviando datos:", values); // ✅ Debug
               const user = await loginUser(values.email, values.password);
@@ -59,29 +60,11 @@ export function LoginPage() {
           }}
         >
           {(
-            {isSubmitting} // ✅ Solo usar isSubmitting
+            { isSubmitting } // ✅ Solo usar isSubmitting
           ) => (
             <Form className="space-y-4">
               {/* Email */}
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-gray-700 mb-1"
-                >
-                  Correo electrónico
-                </label>
-                <Field
-                  type="email"
-                  name="email"
-                  placeholder="tu@email.com"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-                <ErrorMessage
-                  name="email"
-                  component="div"
-                  className="text-red-500 text-xs mt-1"
-                />
-              </div>
+              <AuthInput type="email" placeholder="tu@email.com" name="email" />
 
               {/* Password */}
               <div>
@@ -92,11 +75,10 @@ export function LoginPage() {
                   Contraseña
                 </label>
                 <div className="relative">
-                  <Field
+                  <AuthInput
                     type={showPassword ? "text" : "password"}
-                    name="password"
                     placeholder="••••••••"
-                    className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    name="password"
                   />
                   <button
                     type="button"
@@ -117,7 +99,6 @@ export function LoginPage() {
                 />
               </div>
 
-              {/* Remember me */}
               <div className="flex items-center justify-between">
                 <label className="flex items-center">
                   <input
@@ -134,7 +115,6 @@ export function LoginPage() {
                 </Link>
               </div>
 
-              {/* Submit button */}
               <button
                 type="submit"
                 disabled={isSubmitting}

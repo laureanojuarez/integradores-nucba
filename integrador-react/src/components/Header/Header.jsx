@@ -71,10 +71,16 @@ export const Header = () => {
                 {totalQuantity}
               </span>
             )}
-            <RiUserLine />
+            <Link to={"/login"} className="text-gray-500">
+              <RiUserLine className="cursor-pointer" />
+            </Link>
           </div>
           <div onClick={toggleMenu} className="md:hidden cursor_pointer z-50">
-            {isMenuOpen ? <RiCloseLine size={30} /> : <RiMenuFill size={30} />}
+            {isMenuOpen ? (
+              <RiCloseLine size={30} className="cursor-pointer" />
+            ) : (
+              <RiMenuFill size={30} className="cursor-pointer" />
+            )}
           </div>
         </section>
         {/* Input en modo mobile */}

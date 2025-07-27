@@ -23,13 +23,16 @@ export default function ContactPage() {
   });
 
   return (
-    <main className="flex flex-col justify-center items-center mt-16">
-      <h1>Publica en nuestro concesionario!</h1>
-      <section className="flex flex-wrap flex-col bg-gray-300 w-2xl p-2 gap-4 rounded-xl">
-        <h1 className="text-2xl">Tus Datos</h1>
-        <form className="flex flex-col gap-2" onSubmit={formik.handleSubmit}>
-          <div className="flex gap-2">
-            <div className="w-1/2">
+    <main className="flex flex-col justify-center items-center mt-16 px-4">
+      <h1 className="text-2xl md:text-3xl text-center mb-8">
+        Publica en nuestro concesionario!
+      </h1>
+      <section className="flex flex-col bg-gray-300 w-full max-w-4xl p-4 md:p-6 gap-4 rounded-xl">
+        <h1 className="text-xl md:text-2xl">Tus Datos</h1>
+        <form className="flex flex-col gap-4" onSubmit={formik.handleSubmit}>
+          {/* Nombre y Email */}
+          <div className="flex flex-col md:flex-row gap-4">
+            <div className="w-full md:w-1/2">
               <CardForm
                 label="Nombre y apellido:"
                 id="name"
@@ -46,7 +49,7 @@ export default function ContactPage() {
                 </span>
               )}
             </div>
-            <div className="w-1/2">
+            <div className="w-full md:w-1/2">
               <CardForm
                 label="Correo electrónico:"
                 id="email"
@@ -65,8 +68,9 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <div className="flex gap-2">
-            <div className="w-1/2">
+          {/* Teléfono y Puesto */}
+          <div className="flex flex-col md:flex-row gap-4">
+            <div className="w-full md:w-1/2">
               <CardForm
                 label="Teléfono:"
                 id="phone"
@@ -83,7 +87,7 @@ export default function ContactPage() {
                 </span>
               )}
             </div>
-            <div className="w-1/2">
+            <div className="w-full md:w-1/2">
               <CardForm
                 label="Puesto:"
                 id="puesto"
@@ -102,9 +106,13 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <h1 className="text-2xl">Los datos del concesionario</h1>
-          <div className="flex gap-2">
-            <div className="w-1/2">
+          <h1 className="text-xl md:text-2xl mt-4">
+            Los datos del concesionario
+          </h1>
+
+          {/* Concesionario y Marcas */}
+          <div className="flex flex-col md:flex-row gap-4">
+            <div className="w-full md:w-1/2">
               <CardForm
                 label="Nombre del concesionario:"
                 id="concesionario"
@@ -121,21 +129,23 @@ export default function ContactPage() {
                 </span>
               )}
             </div>
-            <div className="w-1/2">
-              <label htmlFor="marcas">Marca(s) que comercializan:</label>
-              <select
-                id="marcas"
-                name="marcas"
-                value={formik.values.marcas}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                className="p-2 bg-white rounded-xl w-full"
-              >
-                <option value="">Seleccionar</option>
-                <option value="ford">Ford</option>
-                <option value="chevrolet">Chevrolet</option>
-                <option value="fiat">Fiat</option>
-              </select>
+            <div className="w-full md:w-1/2">
+              <div className="flex flex-col">
+                <label htmlFor="marcas">Marca(s) que comercializan:</label>
+                <select
+                  id="marcas"
+                  name="marcas"
+                  value={formik.values.marcas}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  className="p-2 bg-white rounded-lg w-full"
+                >
+                  <option value="">Seleccionar</option>
+                  <option value="ford">Ford</option>
+                  <option value="chevrolet">Chevrolet</option>
+                  <option value="fiat">Fiat</option>
+                </select>
+              </div>
               {formik.touched.marcas && formik.errors.marcas && (
                 <span className="text-red-500 text-xs">
                   {formik.errors.marcas}
@@ -144,8 +154,9 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <div className="flex gap-2 w-full">
-            <div className="w-1/2">
+          {/* Dirección y Ciudad */}
+          <div className="flex flex-col md:flex-row gap-4">
+            <div className="w-full md:w-1/2">
               <CardForm
                 label="Dirección:"
                 id="direccion"
@@ -162,7 +173,7 @@ export default function ContactPage() {
                 </span>
               )}
             </div>
-            <div className="w-1/2">
+            <div className="w-full md:w-1/2">
               <CardForm
                 label="Ciudad:"
                 id="ciudad"
@@ -181,8 +192,8 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <div className="flex gap-2 w-full">
-            <div className="w-1/2">
+          <div className="flex flex-col md:flex-row gap-4">
+            <div className="w-full md:w-1/2">
               <CardForm
                 label="Código Postal:"
                 id="codigoPostal"
@@ -199,7 +210,7 @@ export default function ContactPage() {
                 </span>
               )}
             </div>
-            <div className="w-1/2">
+            <div className="w-full md:w-1/2">
               <CardForm
                 label="Provincia:"
                 id="provincia"
@@ -217,10 +228,11 @@ export default function ContactPage() {
               )}
             </div>
           </div>
-          <div className="flex justify-end w-full">
+
+          <div className="flex justify-center md:justify-end w-full mt-4">
             <button
               type="submit"
-              className="px-8 py-4 bg-blue-400 rounded-xl"
+              className="w-full md:w-auto px-8 py-4 bg-blue-400 hover:bg-blue-500 rounded-xl text-white font-medium transition-colors"
               disabled={formik.isSubmitting}
             >
               Registrarme

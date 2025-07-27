@@ -6,6 +6,8 @@ import ProductsPage from "../../pages/Products/ProductsPage";
 import {ProductMarca} from "../../pages/Products/[marca]/ProductMarca";
 import {ProductDetail} from "../../pages/Products/[id]/ProductDetail";
 import ContactPage from "../../pages/ContactPage";
+import {LoginPage} from "../../pages/Login/LoginPage";
+import Register from "../../pages/Register/Register";
 
 function AppRoutes() {
   return (
@@ -16,6 +18,8 @@ function AppRoutes() {
       <Route path="/catalogo/:marca/:modelo" element={<ProductDetail />} />
       <Route path="/contacto" element={<ContactPage />} />
       <Route path="/checkout" element={<CheckoutPage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<Register />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );

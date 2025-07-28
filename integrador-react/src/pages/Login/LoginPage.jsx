@@ -15,7 +15,7 @@ export function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const { state } = useLocation();
   const dispatch = useDispatch();
-  const navigate = useNavigate(); // ✅ Agregado
+  const navigate = useNavigate();
 
   return (
     <main className="flex flex-col justify-center items-center min-h-screen px-4">
@@ -32,36 +32,26 @@ export function LoginPage() {
           validationSchema={loginValidationSchema}
           onSubmit={async (values, { setSubmitting }) => {
             try {
-              console.log("🔍 Enviando datos:", values); // ✅ Debug
-              const user = await loginUser(values.email, values.password);
-              console.log("✅ Respuesta del servidor:", user); // ✅ Debug
+              const response = await loginUser(values.email, values.password);
 
-              if (user) {
-                const userPayload = {
-                  ...user.usuario,
-                  token: user.token,
-                };
-                console.log("🚀 Despachando a Redux:", userPayload); // ✅ Debug
+              dispatch(setCurrentUser(response.user));
+              toast.success(`¡Bienvenido, ${response.user.nombre}!`);
 
-                dispatch(setCurrentUser(userPayload));
-                toast.success("Inicio de sesión exitoso");
-
-                // ✅ Navegación después del login
-                setTimeout(() => {
-                  navigate(state?.redirectedFromCheckout ? "/checkout" : "/");
-                }, 1000);
-              }
+              navigate(state?.redirectedFromCheckout ? "/checkout" : "/");
             } catch (error) {
-              console.log("❌ Error en login:", error); // ✅ Debug
-              toast.error(error?.response?.data?.msg || "Error en el login");
+              toast.error(error.message || "Error en el login");
             } finally {
               setSubmitting(false);
             }
           }}
         >
+<<<<<<< HEAD
           {(
             { isSubmitting } // ✅ Solo usar isSubmitting
           ) => (
+=======
+          {({isSubmitting}) => (
+>>>>>>> 59e9a88 (feat: Enhance login and registration services with local storage and user state management)
             <Form className="space-y-4">
               {/* Email */}
               <AuthInput type="email" placeholder="tu@email.com" name="email" />

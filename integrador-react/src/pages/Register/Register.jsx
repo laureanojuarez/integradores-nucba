@@ -3,14 +3,23 @@ import { Form, Field, ErrorMessage } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
+<<<<<<< HEAD
 import { registerInitialValues } from "./formik/initial-values";
 import { registerValidationSchema } from "./formik/validation-schema";
 import { createUser } from "./services/services";
 import Submit from "../../components/UI/Submit";
 import AuthInput from "../../components/UI/LoginInput";
+=======
+import {registerInitialValues} from "./formik/initial-values";
+import {registerValidationSchema} from "./formik/validation-schema";
+import {createUser} from "./services/services";
+import {useDispatch} from "react-redux";
+import {setCurrentUser} from "../../redux/slices/user/userSlice";
+>>>>>>> 59e9a88 (feat: Enhance login and registration services with local storage and user state management)
 
 const Register = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   createUser("Laureano", "laureano@example.com", "password123");
 
@@ -27,7 +36,12 @@ const Register = () => {
           validationSchema={registerValidationSchema}
           onSubmit={async (values) => {
             try {
-              await createUser(values.nombre, values.email, values.password);
+              const response = await createUser(
+                values.nombre,
+                values.email,
+                values.password
+              );
+              dispatch(setCurrentUser(response.data.user));
               toast.success("Usuario creado correctamente");
               toast.info("Serás redirigido a la página de login");
               setTimeout(() => {

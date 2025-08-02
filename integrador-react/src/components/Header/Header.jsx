@@ -1,17 +1,15 @@
-import {Navbar} from "./Navbar";
-import {RiSearchLine} from "@remixicon/react";
-import {Button} from "../UI/Button";
-import {RiShoppingCart2Fill} from "@remixicon/react";
-import {Link} from "react-router-dom";
-import {useSelector} from "react-redux";
-import {RiMenuFill} from "@remixicon/react";
-import {RiUserLine} from "@remixicon/react";
-import {useState} from "react";
-import {RiCloseLine} from "@remixicon/react";
-import {useDispatch} from "react-redux";
-import {CartTab} from "../Cart/CartTab";
-import {toggleHiddenCart} from "../../redux/slices/cart/cartSlice";
-import {MobileMenu} from "./MobileMenu";
+import { Navbar } from "./Navbar";
+import { RiSearchLine } from "@remixicon/react";
+import { Button } from "../UI/Button";
+import { RiShoppingCart2Fill } from "@remixicon/react";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RiMenuFill, RiUserLine, RiCloseLine } from "@remixicon/react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { CartTab } from "../Cart/CartTab";
+import { toggleHiddenCart } from "../../redux/slices/cart/cartSlice";
+import { MobileMenu } from "./MobileMenu";
 
 export const Header = () => {
   const dispatch = useDispatch();
@@ -62,15 +60,18 @@ export const Header = () => {
               txt={"text-blue-500"}
               hvtxt={"hover:text-white"}
             />
-            <RiShoppingCart2Fill
-              cursor={"pointer"}
-              onClick={() => dispatch(toggleHiddenCart())}
-            />
-            {totalQuantity > 0 && (
-              <span className="absolute right-2 top-2 bg-red-500 text-white text-xs rounded-full px-1">
-                {totalQuantity}
-              </span>
-            )}
+            <div className="relative">
+              <RiShoppingCart2Fill
+                size={24}
+                className="cursor-pointer text-gray-700 hover:text-blue-500 transition-colors"
+                onClick={() => dispatch(toggleHiddenCart())}
+              />
+              {totalQuantity > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full  w-4 flex items-center justify-center font-semibold">
+                  {totalQuantity}
+                </span>
+              )}
+            </div>
             <Link to={"/login"} className="text-gray-500">
               <RiUserLine className="cursor-pointer" />
             </Link>

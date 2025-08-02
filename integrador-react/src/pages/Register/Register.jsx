@@ -3,19 +3,12 @@ import { Form, Field, ErrorMessage } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
-<<<<<<< HEAD
 import { registerInitialValues } from "./formik/initial-values";
 import { registerValidationSchema } from "./formik/validation-schema";
 import { createUser } from "./services/services";
 import Submit from "../../components/UI/Submit";
 import AuthInput from "../../components/UI/LoginInput";
-=======
-import {registerInitialValues} from "./formik/initial-values";
-import {registerValidationSchema} from "./formik/validation-schema";
-import {createUser} from "./services/services";
-import {useDispatch} from "react-redux";
-import {setCurrentUser} from "../../redux/slices/user/userSlice";
->>>>>>> 59e9a88 (feat: Enhance login and registration services with local storage and user state management)
+import { useDispatch } from "react-redux";
 
 const Register = () => {
   const navigate = useNavigate();

@@ -1,5 +1,5 @@
 import { Formik } from "formik";
-import { Form, Field, ErrorMessage } from "formik";
+import { Form } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
@@ -9,12 +9,11 @@ import { createUser } from "./services/services";
 import Submit from "../../components/UI/Submit";
 import AuthInput from "../../components/UI/LoginInput";
 import { useDispatch } from "react-redux";
+import { setCurrentUser } from "../../redux/slices/user/userSlice";
 
 const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  createUser("Laureano", "laureano@example.com", "password123");
 
   return (
     <main className="flex flex-col justify-center items-center min-h-screen px-4">
@@ -41,7 +40,7 @@ const Register = () => {
                 navigate("/login");
               }, 2000);
             } catch (error) {
-              toast.error(error.response.data.errors[0].msg);
+              toast.error(error.message || "Error al crear el usuario");
             }
           }}
         >

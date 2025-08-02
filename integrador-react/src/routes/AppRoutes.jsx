@@ -9,6 +9,7 @@ import { LoginPage } from "../pages/Login/LoginPage";
 import Register from "../pages/Register/Register";
 import ProtectedRoute from "./ProtectedRoute";
 import { ProductDetail } from "../pages/Products/[id]/ProductDetail";
+import FeaturedCars from "../pages/Products/FeaturedCars";
 
 function AppRoutes() {
   return (
@@ -20,6 +21,7 @@ function AppRoutes() {
       <Route path="/contacto" element={<ContactPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/autos-destacados" element={<FeaturedCars />} />
 
       <Route
         path="/checkout"

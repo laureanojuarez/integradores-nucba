@@ -1,8 +1,8 @@
-import {Link} from "react-router-dom";
-import {useCart} from "../../hooks/useCart";
+import { Link } from "react-router-dom";
+import { useCart } from "../../hooks/useCart";
 
-export const ProductCard = ({id, marca, modelo, precio, imagen}) => {
-  const {handleAddToCart} = useCart();
+export const ProductCard = ({ id, marca, modelo, precio, imagen }) => {
+  const { handleAddToCart } = useCart();
 
   const productUrl = `/catalogo/${marca.toLowerCase()}/${modelo
     .toLowerCase()
@@ -36,7 +36,7 @@ export const ProductCard = ({id, marca, modelo, precio, imagen}) => {
 
         <button
           className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors duration-200 font-medium"
-          onClick={() => handleAddToCart({id, marca, modelo, precio, imagen})}
+          onClick={() => handleAddToCart({ id, marca, modelo, precio, imagen })}
         >
           Comprar Auto
         </button>

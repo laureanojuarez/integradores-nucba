@@ -45,13 +45,7 @@ export function LoginPage() {
             }
           }}
         >
-<<<<<<< HEAD
-          {(
-            { isSubmitting } // ✅ Solo usar isSubmitting
-          ) => (
-=======
-          {({isSubmitting}) => (
->>>>>>> 59e9a88 (feat: Enhance login and registration services with local storage and user state management)
+          {({ isSubmitting }) => (
             <Form className="space-y-4">
               {/* Email */}
               <AuthInput type="email" placeholder="tu@email.com" name="email" />

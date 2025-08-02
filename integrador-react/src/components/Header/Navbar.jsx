@@ -9,7 +9,7 @@ export function Navbar() {
           <a href="/autos">Sobre nosotros</a>
         </li>
         <li>
-          <a href="/contacto">Autos destacados</a>
+          <a href="/autos-destacados">Autos destacados</a>
         </li>
       </ul>
     </nav>

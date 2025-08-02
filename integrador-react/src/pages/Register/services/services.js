@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-import axios from "axios";
-import { toast } from "sonner";
-=======
-import {toast} from "sonner";
->>>>>>> 59e9a88 (feat: Enhance login and registration services with local storage and user state management)
-
 const fakeDelay = (ms) => new Promise((res) => setTimeout(res, ms));
 
 export const createUser = async (nombre, email, password) => {

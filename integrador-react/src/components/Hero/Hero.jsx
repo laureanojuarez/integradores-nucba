@@ -3,8 +3,9 @@ import territory from "/images/marcas/ford/territory.png";
 
 export function Hero() {
   return (
-    <section className="flex flex-col items-center bg-gradient-to-b from-blue-100 to-blue-200 mt-7 p-4 min-h-[500px] lg:min-h-[600px]">
+    <section className="flex flex-col items-center  mt-7 min-h-[500px] lg:min-h-[600px] w-full">
       <div className="w-full text-center mb-8 lg:mb-12">
+        <div className="absolute inset-0 bg-gradient-to-b from-blue-400/30 to-transparent pointer-events-none" />
         <p className="text-lg md:text-xl text-blue-600 font-medium mb-2">
           Compra Online
         </p>
@@ -13,7 +14,7 @@ export function Hero() {
         </h1>
       </div>
 
-      <div className="w-full max-w-4xl h-64 md:h-80 lg:h-96 xl:h-[28rem] relative overflow-hidden">
+      <div className="w-full h-64 md:h-80 lg:h-96 xl:h-[28rem] relative overflow-hidden">
         <img
           src={Tracker}
           alt="Ford F-150"
@@ -41,8 +42,6 @@ export function Hero() {
             drop-shadow-xl
           "
         />
-
-        <div className="absolute inset-0 bg-gradient-to-t from-blue-300/20 to-transparent pointer-events-none" />
       </div>
 
       <div className="mt-8 lg:mt-12">

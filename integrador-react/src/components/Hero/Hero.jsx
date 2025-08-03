@@ -20,7 +20,7 @@ export function Hero() {
           alt="Ford F-150"
           className="
             absolute 
-            w-[55%] sm:w-[45%] md:w-[42%] lg:w-[40%] xl:w-[38%]
+            w-[55%] sm:w-[45%] md:w-[42%] lg:w-[40%] xl:w-[29%]
             bottom-[25%] sm:bottom-[28%] md:bottom-[30%] lg:bottom-[32%]
             left-[15%] sm:left-[20%] md:left-[25%] lg:left-[28%]
             z-10 
@@ -34,7 +34,7 @@ export function Hero() {
           alt="Ford Territory"
           className="
             absolute 
-            w-[50%] sm:w-[40%] md:w-[38%] lg:w-[36%] xl:w-[34%]
+            w-[50%] sm:w-[40%] md:w-[38%] lg:w-[36%] xl:w-[30%]
             bottom-[10%] sm:bottom-[12%] md:bottom-[15%] lg:bottom-[18%]
             right-[15%] sm:right-[20%] md:right-[25%] lg:right-[28%]
             z-20 

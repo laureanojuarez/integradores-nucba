@@ -101,7 +101,7 @@ export const CartTab = () => {
                         {item.marca} {item.modelo}
                       </h4>
                       <p className="text-lg font-semibold text-blue-600">
-                        ${item.precio.toLocaleString()}
+                        ${(item.precio || 0).toLocaleString()}
                       </p>
                     </div>
                     <button

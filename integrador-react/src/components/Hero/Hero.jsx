@@ -1,3 +1,4 @@
+import {Link} from "react-router-dom";
 import Tracker from "/images/marcas/ford/f150.webp";
 import territory from "/images/marcas/ford/territory.png";
 
@@ -45,9 +46,12 @@ export function Hero() {
       </div>
 
       <div className="mt-8 lg:mt-12">
-        <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors shadow-lg hover:shadow-xl transform hover:scale-105">
+        <Link
+          to={"/catalogo"}
+          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors shadow-lg hover:shadow-xl transform hover:scale-105"
+        >
           Ver Catálogo
-        </button>
+        </Link>
       </div>
     </section>
   );

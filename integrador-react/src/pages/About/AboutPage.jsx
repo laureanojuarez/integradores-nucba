@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Feature } from "../../components/About/AboutFeature";
-import { Stat } from "../../components/About/AboutStat";
 
 export default function About() {
   useEffect(() => {

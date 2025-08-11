@@ -3,9 +3,12 @@ import { autos } from "../../mock/autos.js";
 
 export function FeaturedCars() {
   return (
-    <>
-      <h2>Featured Cars</h2>
-      <div className="flex  items-center justify-center min-h-screen gap-4">
+    <section className="max-w-6xl mx-auto py-10 px-4">
+      <h2 className="text-2xl font-bold text-center mb-4">Autos Destacados</h2>
+      <p className="text-center text-gray-600 mb-8">
+        Descubri los modelos más elegidos por nuestros clientes.
+      </p>
+      <div className="flex flex-wrap gap-6 justify-center">
         {autos.slice(3, 7).map((car) => (
           <ProductCard
             key={car.id}
@@ -18,7 +21,7 @@ export function FeaturedCars() {
           />
         ))}
       </div>
-    </>
+    </section>
   );
 }
 

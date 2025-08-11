@@ -9,8 +9,11 @@ import { useCart } from "../../hooks/useCart";
 import { useNavigate } from "react-router-dom";
 import { RiShoppingCart2Line } from "@remixicon/react";
 import { RiArrowRightLine } from "@remixicon/react";
+import { useSelector } from "react-redux";
 
 export const CartTab = () => {
+  const currentUser = useSelector((state) => state.user.currentUser);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { cartItems, subtotal, impuestos, total, handleClearCart } = useCart();
@@ -148,10 +151,24 @@ export const CartTab = () => {
             </button>
           )}
 
+          {!currentUser && (
+            <div className="mb-3 text-center text-red-600 font-semibold">
+              Debes iniciar sesión para finalizar la compra.
+              <button
+                className="ml-2 underline text-blue-600"
+                onClick={() => {
+                  navigate("/login");
+                  handleCloseCart();
+                }}
+              >
+                Iniciar sesión
+              </button>
+            </div>
+          )}
           <button
             className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
             onClick={handleFinalizarCompra}
-            disabled={cartItems.length === 0}
+            disabled={cartItems.length === 0 || !currentUser}
           >
             Finalizar Compra
             <RiArrowRightLine className="w-4 h-4" />

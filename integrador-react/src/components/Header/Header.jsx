@@ -73,7 +73,7 @@ export const Header = () => {
               )}
             </div>
             <Link to={"/login"} className="text-gray-500">
-              <RiUserLine className="cursor-pointer" />
+              <RiUserLine className="cursor-pointer text-gray-700 hover:text-blue-500 transition-colors" />
             </Link>
           </div>
           <div onClick={toggleMenu} className="md:hidden cursor_pointer z-50">

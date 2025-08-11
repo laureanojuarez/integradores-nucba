@@ -6,7 +6,7 @@ export function Navbar() {
           <a href="/catalogo">Autos</a>
         </li>
         <li>
-          <a href="/autos">Sobre nosotros</a>
+          <a href="/about">Sobre nosotros</a>
         </li>
         <li>
           <a href="/autos-destacados">Autos destacados</a>

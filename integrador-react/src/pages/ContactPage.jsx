@@ -1,6 +1,6 @@
-import {useFormik} from "formik";
-import {CardForm} from "../components/UI/CardForm";
-import {validationSchema} from "../schemas";
+import { useFormik } from "formik";
+import { CardForm } from "../components/UI/CardForm";
+import { validationSchema } from "../schemas";
 
 export default function ContactPage() {
   const formik = useFormik({
@@ -23,7 +23,7 @@ export default function ContactPage() {
   });
 
   return (
-    <main className="flex flex-col justify-center items-center mt-16 px-4">
+    <main className="flex flex-col justify-center items-center mt-16 p-4">
       <h1 className="text-2xl md:text-3xl text-center mb-8">
         Publica en nuestro concesionario!
       </h1>

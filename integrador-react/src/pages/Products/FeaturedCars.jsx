@@ -13,7 +13,7 @@ export function FeaturedCars() {
             modelo={car.modelo}
             marca={car.marca}
             year={car.year}
-            price={car.precio}
+            precio={car.precio}
             imagen={car.imagen}
           />
         ))}

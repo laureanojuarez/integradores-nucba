@@ -1,6 +1,6 @@
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import Tracker from "/images/marcas/ford/f150.webp";
-import territory from "/images/marcas/ford/territory.png";
+import territory from "/images/marcas/ford/territory.webp";
 
 export function Hero() {
   return (

@@ -1,4 +1,4 @@
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export const ProductSection = () => {
   const productRenderer = [
@@ -6,25 +6,25 @@ export const ProductSection = () => {
       id: 1,
       marca: "Ford",
       modelo: "F-150",
-      imagen: "/images/ford.png",
+      imagen: "/images/ford.webp",
     },
     {
       id: 2,
       marca: "Fiat",
       modelo: "Pulse",
-      imagen: "/images/fiat.png",
+      imagen: "/images/fiat.webp",
     },
     {
       id: 3,
       marca: "Chevrolet",
       modelo: "Tracker",
-      imagen: "/images/chevrolet.png",
+      imagen: "/images/chevrolet.webp",
     },
     {
       id: 4,
       marca: "Volkswagen",
       modelo: "T-Cross",
-      imagen: "/images/volkswagen.png",
+      imagen: "/images/volkswagen.webp",
     },
   ];
 

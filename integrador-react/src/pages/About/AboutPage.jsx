@@ -21,7 +21,7 @@ export default function About() {
           </p>
           <div className="mt-6 flex items-center justify-center gap-3">
             <Link
-              to="/productos"
+              to="/catalogo"
               className="inline-flex items-center rounded-md bg-white text-blue-700 px-4 py-2 font-medium hover:bg-white/90 transition"
             >
               Ver Autos

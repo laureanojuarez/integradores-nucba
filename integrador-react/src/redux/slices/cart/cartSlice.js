@@ -1,4 +1,4 @@
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const INITIAL_STATE = {
   cartItems: [],
@@ -10,27 +10,35 @@ export const cartSlice = createSlice({
   initialState: INITIAL_STATE,
   reducers: {
     toggleHiddenCart: (state) => {
-      return {
-        ...state,
-        hidden: !state.hidden,
-      };
+      state.hidden = !state.hidden;
     },
     addToCart: (state, action) => {
-      const existingItem = state.cartItems.find(
-        (item) => item.id === action.payload.id
-      );
-
-      if (!existingItem) {
-        state.cartItems.push({
-          ...action.payload,
-          quantity: 1,
-        });
+      const item = action.payload; // { id, ... }
+      const existing = state.cartItems.find((p) => p.id === item.id);
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        state.cartItems.push({ ...item, quantity: 1 });
+      }
+    },
+    incrementQuantity: (state, action) => {
+      const id = action.payload;
+      const existing = state.cartItems.find((p) => p.id === id);
+      if (existing) existing.quantity += 1;
+    },
+    decrementQuantity: (state, action) => {
+      const id = action.payload;
+      const existing = state.cartItems.find((p) => p.id === id);
+      if (!existing) return;
+      if (existing.quantity > 1) {
+        existing.quantity -= 1;
+      } else {
+        state.cartItems = state.cartItems.filter((p) => p.id !== id);
       }
     },
     removeFromCart: (state, action) => {
-      state.cartItems = state.cartItems.filter(
-        (item) => item.id !== action.payload.id
-      );
+      const id = action.payload?.id ?? action.payload;
+      state.cartItems = state.cartItems.filter((item) => item.id !== id);
     },
     clearCart: (state) => {
       state.cartItems = [];
@@ -38,7 +46,13 @@ export const cartSlice = createSlice({
   },
 });
 
-export const {addToCart, removeFromCart, clearCart, toggleHiddenCart} =
-  cartSlice.actions;
+export const {
+  addToCart,
+  removeFromCart,
+  clearCart,
+  toggleHiddenCart,
+  incrementQuantity,
+  decrementQuantity,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;

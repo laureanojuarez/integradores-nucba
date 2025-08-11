@@ -2,7 +2,7 @@ import { Navbar } from "./Navbar";
 import { RiSearchLine } from "@remixicon/react";
 import { Button } from "../UI/Button";
 import { RiShoppingCart2Fill } from "@remixicon/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RiMenuFill, RiUserLine, RiCloseLine } from "@remixicon/react";
 import { useState } from "react";
@@ -10,12 +10,25 @@ import { useDispatch } from "react-redux";
 import { CartTab } from "../Cart/CartTab";
 import { toggleHiddenCart } from "../../redux/slices/cart/cartSlice";
 import { MobileMenu } from "./MobileMenu";
+import { setSearchTerm } from "../../redux/slices/search/searchSlice";
 
 export const Header = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.cartItems);
   const hidden = useSelector((state) => state.cart.hidden);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const navigate = useNavigate();
+
+  const handleSearchChange = (e) => {
+    dispatch(setSearchTerm(e.target.value));
+  };
+
+  const handleSearchKey = (e) => {
+    if (e.key === "Enter") {
+      navigate("/catalogo");
+    }
+  };
 
   const totalQuantity = cartItems.reduce(
     (total, item) => total + item.quantity,
@@ -40,6 +53,8 @@ export const Header = () => {
                 type="text"
                 placeholder="Buscar autos..."
                 className="border-none outline-none px-2 py-1 rounded-xl"
+                onChange={handleSearchChange}
+                onKeyDown={handleSearchKey}
               />
             </div>
           </div>
@@ -84,13 +99,14 @@ export const Header = () => {
             )}
           </div>
         </section>
-        {/* Input en modo mobile */}
         <div className="flex border rounded-xl items-center justify-start w-full md:hidden">
           <RiSearchLine className="text-gray-500 m-2" />
           <input
             type="text"
             placeholder="Buscar autos..."
             className="border-none outline-none px-2 py-1 rounded-xl"
+            onChange={handleSearchChange}
+            onKeyDown={handleSearchKey}
           />
         </div>
         <Navbar />

@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import { RiCloseLine } from "@remixicon/react";
 import { RiDeleteBin3Fill } from "@remixicon/react";
 import { useDispatch } from "react-redux";
@@ -17,7 +16,7 @@ export const CartTab = () => {
   const { cartItems, subtotal, impuestos, total, handleClearCart } = useCart();
 
   const handleDelete = (id) => {
-    dispatch(removeFromCart({ id }));
+    dispatch(removeFromCart(id));
   };
 
   const handleCloseCart = () => {
@@ -101,7 +100,7 @@ export const CartTab = () => {
                         {item.marca} {item.modelo}
                       </h4>
                       <p className="text-lg font-semibold text-blue-600">
-                        ${(item.precio || 0).toLocaleString()}
+                        ${Number(item.precio || 0).toLocaleString("es-AR")}
                       </p>
                     </div>
                     <button
@@ -123,15 +122,17 @@ export const CartTab = () => {
             <div className="space-y-2 mb-4">
               <div className="flex justify-between text-sm">
                 <span className="text-gray-600">Subtotal:</span>
-                <span>${subtotal.toLocaleString()}</span>
+                <span>${subtotal.toLocaleString("es-AR")}</span>
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-gray-600">IVA (21%):</span>
-                <span>${impuestos.toLocaleString()}</span>
+                <span>${impuestos.toLocaleString("es-AR")}</span>
               </div>
               <div className="flex justify-between text-lg font-semibold border-t pt-2">
                 <span>Total:</span>
-                <span className="text-blue-600">${total.toLocaleString()}</span>
+                <span className="text-blue-600">
+                  ${total.toLocaleString("es-AR")}
+                </span>
               </div>
             </div>
           </div>

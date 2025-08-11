@@ -1,7 +1,7 @@
-import {RiUserLine} from "@remixicon/react";
-import {Link} from "react-router-dom";
+import { RiUserLine } from "@remixicon/react";
+import { Link } from "react-router-dom";
 
-export const MobileMenu = ({isOpen, onClose}) => {
+export const MobileMenu = ({ isOpen, onClose }) => {
   return (
     <div
       className={`fixed top-0 left-0 w-full h-full bg-white z-40 transform ${
@@ -17,7 +17,7 @@ export const MobileMenu = ({isOpen, onClose}) => {
             </Link>
           </li>
           <li>
-            <Link to="/autos" onClick={onClose}>
+            <Link to="/about" onClick={onClose}>
               Sobre nosotros
             </Link>
           </li>

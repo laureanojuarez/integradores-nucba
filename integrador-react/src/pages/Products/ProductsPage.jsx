@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { ProductCard } from "../../components/Products/ProductCard";
 import { autos } from "../../mock/autos";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const INITIAL_ITEMS_TO_SHOW = 6;
 const ITEMS_TO_ADD = 3;
@@ -9,17 +11,27 @@ export default function ProductsPage() {
   const [visibleItems, setVisibleItems] = useState(INITIAL_ITEMS_TO_SHOW);
   const [activeFilter, setActiveFilter] = useState("Todos");
 
+  const searchTerm = useSelector((s) => s.search.term.trim().toLowerCase());
+
+  const marcas = ["Todos", ...new Set(autos.map((auto) => auto.marca))];
+
   const handleFilterChange = (marca) => {
     setActiveFilter(marca);
     setVisibleItems(INITIAL_ITEMS_TO_SHOW);
   };
 
-  const marcas = ["Todos", ...new Set(autos.map((auto) => auto.marca))];
-
-  const filteredAutos =
+  const autosPorMarca =
     activeFilter === "Todos"
       ? autos
       : autos.filter((auto) => auto.marca === activeFilter);
+
+  const filteredAutos = autosPorMarca.filter((a) =>
+    `${a.marca} ${a.modelo}`.toLowerCase().includes(searchTerm)
+  );
+
+  useEffect(() => {
+    setVisibleItems(INITIAL_ITEMS_TO_SHOW);
+  }, [searchTerm]);
 
   const handleShowMore = () => {
     setVisibleItems((prev) => prev + ITEMS_TO_ADD);

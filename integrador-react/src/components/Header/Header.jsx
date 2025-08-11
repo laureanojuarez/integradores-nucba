@@ -45,7 +45,11 @@ export const Header = () => {
         <section className="flex w-4/5 max-w-6xl justify-between items-center">
           <div className="flex gap-2 w-full ">
             <Link to={"/"}>
-              <img src="/images/icono.png" alt="" className="w-10 rounded-lg" />
+              <img
+                src="/images/icono.webp"
+                alt=""
+                className="w-10 rounded-lg"
+              />
             </Link>
             <div className="hidden border rounded-xl md:flex items-center justify-start w-3/4">
               <RiSearchLine className="text-gray-500 m-2" />

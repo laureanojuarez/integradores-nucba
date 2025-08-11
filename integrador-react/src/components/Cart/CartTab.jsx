@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { RiShoppingCart2Line } from "@remixicon/react";
 import { RiArrowRightLine } from "@remixicon/react";
 import { useSelector } from "react-redux";
+import { Button } from "../UI/Button";
 
 export const CartTab = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -74,16 +75,17 @@ export const CartTab = () => {
               <p className="text-sm text-gray-500 mb-6">
                 ¡Descubre nuestros autos!
               </p>
-              <button
-                className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
-                onClick={() => {
-                  navigate("/catalogo");
-                  handleCloseCart();
-                }}
+              <Button
+                linkto="/catalogo"
+                nombre="Ver Catalogo"
+                bg="bg-blue-600"
+                hv="hover:bg-blue-700"
+                txt="text-white"
+                hvtxt=""
               >
-                Ver Catalogo
+                Ver Catálogo
                 <RiArrowRightLine className="w-4 h-4" />
-              </button>
+              </Button>
             </div>
           ) : (
             <div className="space-y-4">
@@ -154,15 +156,16 @@ export const CartTab = () => {
           {!currentUser && (
             <div className="mb-3 text-center text-red-600 font-semibold">
               Debes iniciar sesión para finalizar la compra.
-              <button
-                className="ml-2 underline text-blue-600"
-                onClick={() => {
-                  navigate("/login");
-                  handleCloseCart();
-                }}
+              <Button
+                linkto="/login"
+                nombre="Iniciar sesión"
+                bg="bg-white"
+                hv="hover:bg-blue-50"
+                txt="text-blue-600 underline"
+                hvtxt=""
               >
                 Iniciar sesión
-              </button>
+              </Button>
             </div>
           )}
           <button

@@ -1,24 +1,11 @@
-import {Outlet} from "react-router";
-import {CartTab} from "./components/Cart/CartTab";
-import {useState} from "react";
-import {Header} from "./components/Header/Header";
-import {Footer} from "./components/Footer/Footer";
+import Home from "../pages/Home/Home";
+import Layout from "./components/Layout/Layout";
 
 function App() {
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const handleCartToggle = () => {
-    setIsCartOpen(!isCartOpen);
-  };
-
   return (
-    <>
-      <Header onCartClick={handleCartToggle} />
-      {isCartOpen && <CartTab closeCart={handleCartToggle} />}
-      <main className="pt-36">
-        <Outlet />
-      </main>
-      <Footer />
-    </>
+    <Layout>
+      <Home />
+    </Layout>
   );
 }
 

@@ -9,12 +9,7 @@ const Layout = ({children}) => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
-  return;
-  <>
-    <Header />
-    <main>{children}</main>
-    <Footer />
-  </>;
+  return <main className="">{children}</main>;
 };
 
 export default Layout;

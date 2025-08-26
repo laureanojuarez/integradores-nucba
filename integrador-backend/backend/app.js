@@ -1,6 +1,6 @@
 import express from "express";
 import "dotenv/config";
-import connectDB from "./middlewares/connect";
+import connectDB from "./middlewares/connect.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;

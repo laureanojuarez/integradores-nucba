@@ -1,21 +1,21 @@
-import "embla-carousel-react";
-import EmblaCarousel from "../../components/Carousel/Carousel";
+import Carousel from "../../components/Carousel/Carousel";
 
-const SLIDE_IMAGES = [
-  "/images/carousel/elconjuro4.webp",
-  "/images/carousel/nadie2.webp",
-  "/images/carousel/homoargentum.jpg",
+const slides = [
+  "images/carousel/elconjuro4.webp",
+  "images/carousel/homoargentum.jpg",
+  "images/carousel/nadie2.webp",
 ];
-
-const OPTIONS = {
-  dragFree: true,
-  loop: true,
-};
 
 export default function Home() {
   return (
-    <div className="flex w-full">
-      <EmblaCarousel slides={SLIDE_IMAGES} options={OPTIONS} />
+    <div>
+      <div className="w-full flex items-center justify-center">
+        <Carousel>
+          {slides.map((s) => (
+            <img src={s} alt="" width={"100%"} height={"400px"} />
+          ))}
+        </Carousel>
+      </div>
     </div>
   );
 }

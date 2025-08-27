@@ -1,9 +1,9 @@
-import {MoveRight} from "lucide-react";
-import {MoveLeft} from "lucide-react";
-import {cloneElement} from "react";
-import {useState} from "react";
+import { MoveRight } from "lucide-react";
+import { MoveLeft } from "lucide-react";
+import { cloneElement } from "react";
+import { useState } from "react";
 
-export default function Carousel({children: slides}) {
+export default function Carousel({ children: slides }) {
   const [curr, setCurr] = useState(0);
 
   const prev = () => setCurr(curr === 0 ? slides.length - 1 : curr - 1);
@@ -14,7 +14,7 @@ export default function Carousel({children: slides}) {
     <div className="overflow-hidden relative w-full">
       <div
         className="flex transition-transform ease-out duration-500"
-        style={{transform: `translateX(-${curr * 100}%)`}}
+        style={{ transform: `translateX(-${curr * 100}%)` }}
       >
         {slides.map((slide, i) => (
           <div
@@ -23,7 +23,8 @@ export default function Carousel({children: slides}) {
           >
             {cloneElement(slide, {
               className:
-                "w-full h-full object-cover " + (slide.props.className || ""),
+                "w-[1000px] h-[400px] object-cover rounded-2xl " +
+                (slide.props.className || ""),
               loading: "lazy",
             })}
           </div>

@@ -1,4 +1,5 @@
-import { createFilm, getFilms } from "../controllers/films";
+import express from "express";
+import { createFilm, getFilms } from "../controllers/films.js";
 
 const router = express.Router();
 

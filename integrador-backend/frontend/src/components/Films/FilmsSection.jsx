@@ -1,4 +1,4 @@
-import {useFilms} from "../../../hooks/useFilms";
+import {useFilms} from "../../hooks/useFilms";
 import {FilmsList} from "./FilmList";
 
 export const FilmsSection = () => {

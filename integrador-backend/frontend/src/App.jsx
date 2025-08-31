@@ -1,13 +1,12 @@
-import { Footer } from "./components/Footer/Footer";
-import { Header } from "./components/Header/Header";
+import {Footer} from "./components/Footer/Footer";
+import {Header} from "./components/Header/Header";
 import Layout from "./components/Layout/Layout";
-import Home from "./pages/Home/Home";
-
+import AppRoutes from "./routes/AppRoutes";
 function App() {
   return (
     <Layout>
       <Header />
-      <Home />
+      <AppRoutes />
       <Footer />
     </Layout>
   );

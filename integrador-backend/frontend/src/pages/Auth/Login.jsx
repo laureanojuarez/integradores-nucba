@@ -1,4 +1,5 @@
-import {Button} from "../../components/UI/Button";
+import { Link } from "react-router-dom";
+import { Button } from "../../components/UI/Button";
 
 export default function LoginPage() {
   return (
@@ -10,7 +11,9 @@ export default function LoginPage() {
         <button>Iniciar Sesion</button>
       </form>
       <span>Olvide mi contraseña</span>
-      <Button bg={"bg-red-500"}>CREAR CUENTA</Button>
+      <Link to={"/register"}>
+        <Button bg={"bg-red-500"}>CREAR CUENTA</Button>
+      </Link>
     </div>
   );
 }

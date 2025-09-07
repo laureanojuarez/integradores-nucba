@@ -1,4 +1,4 @@
-import User from "../models/users.js";
+import User from "../models/users.models.js";
 
 export const getUsers = async (req, res) => {
   try {
@@ -26,7 +26,7 @@ export const getUser = async (req, res) => {
 export const createUser = async (req, res) => {
   try {
     const dni = Number(req.body.dni);
-    const { nombre, email, password } = req.body;
+    const { username, email, password } = req.body;
 
     if (isNaN(dni)) {
       return res.status(400).json({ message: "DNI debe ser un número" });
@@ -37,10 +37,10 @@ export const createUser = async (req, res) => {
       return res.status(409).json({ message: "DNI ya registrado" });
     }
 
-    if (!nombre || !email || !password) {
+    if (!username || !email || !password) {
       return res
         .status(400)
-        .json({ message: "Nombre, email y password son requeridos" });
+        .json({ message: "Username, email y password son requeridos" });
     }
 
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -50,7 +50,7 @@ export const createUser = async (req, res) => {
 
     const user = await User.create({
       dni,
-      nombre,
+      username,
       email,
       password,
     });
@@ -63,10 +63,10 @@ export const createUser = async (req, res) => {
 
 export const updateUser = async (req, res) => {
   try {
-    const { nombre, email, password } = req.body;
+    const { username, email, password } = req.body;
     const { id } = req.params;
 
-    let updateData = { nombre, email };
+    let updateData = { username, email };
     if (password) {
       updateData.password = password;
     }

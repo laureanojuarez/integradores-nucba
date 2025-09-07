@@ -2,11 +2,11 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js -e mjs,cjs,js,json",
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js -e mjs,cjs,js,json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

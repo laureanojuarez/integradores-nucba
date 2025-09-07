@@ -5,7 +5,11 @@ export const films = [
     slug: "homo-argentum",
     type: "2D",
     duration: "1h 30m",
-    days: ["Lunes", "Miércoles", "Viernes"],
+    showtimes: {
+      Lunes: ["14:00", "18:00"],
+      Miércoles: ["16:00"],
+      Viernes: ["18:00", "20:00"],
+    },
     image: "/images/films/homoargentum.jpg",
   },
   {
@@ -14,7 +18,11 @@ export const films = [
     slug: "el-novio-de-mama",
     type: "2D",
     duration: "1h 45m",
-    days: ["Martes", "Jueves", "Sábado"],
+    showtimes: {
+      Lunes: ["14:00", "18:00"],
+      Miércoles: ["16:00"],
+      Viernes: ["18:00", "20:00"],
+    },
   },
   {
     id: 3,
@@ -22,7 +30,11 @@ export const films = [
     slug: "jurassic-world",
     type: "3D",
     duration: "2h 5m",
-    days: ["Lunes", "Miércoles", "Viernes"],
+    showtimes: {
+      Lunes: ["14:00", "18:00"],
+      Miércoles: ["16:00"],
+      Viernes: ["18:00", "20:00"],
+    },
   },
   {
     id: 4,
@@ -30,7 +42,11 @@ export const films = [
     slug: "el-conjuro-4",
     type: "4DX",
     duration: "2h 10m",
-    days: ["Martes", "Jueves", "Sábado"],
+    showtimes: {
+      Lunes: ["14:00", "18:00"],
+      Miércoles: ["16:00"],
+      Viernes: ["18:00", "20:00"],
+    },
   },
   {
     id: 5,
@@ -38,7 +54,11 @@ export const films = [
     slug: "la-hora-de-la-desaparicion",
     type: "2D",
     duration: "2h 8m",
-    days: ["Lunes", "Miércoles", "Viernes"],
+    showtimes: {
+      Lunes: ["14:00", "18:00"],
+      Miércoles: ["16:00"],
+      Viernes: ["18:00", "20:00"],
+    },
     image: "/images/films/horadesaparicion.jpg",
   },
   {
@@ -47,7 +67,11 @@ export const films = [
     slug: "los-4-fantasticos",
     type: "4DX",
     duration: "2h 15m",
-    days: ["Martes", "Jueves", "Sábado"],
+    showtimes: {
+      Martes: ["14:00"],
+      Jueves: ["16:00"],
+      Sábado: ["18:00"],
+    },
     image: "/images/films/fourfantastics.jpg",
   },
 ];

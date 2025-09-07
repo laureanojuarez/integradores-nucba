@@ -1,7 +1,7 @@
-export const Button = ({bg, children}) => {
+export const Button = ({ bg, hv, children, px, py, txt }) => {
   return (
     <button
-      className={`${bg} text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors`}
+      className={`${bg} ${txt} ${px} ${py} rounded-md hover:${hv} transition-colors`}
     >
       {children}
     </button>

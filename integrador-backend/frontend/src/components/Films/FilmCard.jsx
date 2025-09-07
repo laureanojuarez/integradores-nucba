@@ -5,13 +5,9 @@ export const FilmCard = ({ film }) => {
   const hasImage = Boolean(film.image);
 
   return (
-    <div
-      className="group relative flex flex-col gap-3 rounded-xl border border-neutral-700/60 bg-neutral-800/70 p-4 
-                 shadow-sm backdrop-blur transition hover:-translate-y-1 hover:border-neutral-500 hover:shadow-lg
-                 hover:shadow-black/40"
-    >
-      <Link to={`/films/${film.slug}`} className="block">
-        <div className="relative h-80 w-full overflow-hidden rounded-lg ring-1 ring-neutral-600/40">
+    <div className="group relative flex flex-col gap-3 rounded-xl border border-neutral-700/60 bg-neutral-800/70 shadow-sm backdrop-blur transition hover:-translate-y-1 hover:border-neutral-500 hover:shadow-lg hover:shadow-black/40">
+      <Link to={`/films/${film.slug}`} className="">
+        <div className="relative h-80 w-full overflow-hidden rounded-t-xl ring-1 ring-neutral-600/40">
           {hasImage ? (
             <img
               src={film.image}
@@ -32,7 +28,7 @@ export const FilmCard = ({ film }) => {
         </div>
       </Link>
 
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 p-2">
         <h3 className="text-lg font-semibold leading-snug group-hover:text-white text-neutral-100 line-clamp-2">
           {film.title}
         </h3>

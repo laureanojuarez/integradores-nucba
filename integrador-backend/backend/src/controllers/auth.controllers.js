@@ -43,37 +43,65 @@ export const register = async (req, res) => {
 
 export const login = async (req, res) => {
   try {
-    const { dni, password } = req.body;
-    if (!dni || !password) {
-      return res.status(400).json({ message: "DNI y password requeridos" });
-    }
-    const user = await User.findOne({ dni }).lean();
-    if (!user) {
-      return res.status(404).json({ message: "Usuario no encontrado" });
-    }
-    const ok = await bcrypt.compare(password, user.password || "");
-    if (!ok) {
-      return res.status(401).json({ message: "Credenciales inválidas" });
+    const { email, password } = req.body;
+    const userFound = await User.findOne({ email });
+
+    if (!userFound)
+      return res.status(400).json({
+        message: ["El email no esta registrado"],
+      });
+
+    const isMatch = await bcrypt.compare(password, userFound.password);
+    if (!isMatch) {
+      return res.status(400).json({
+        message: ["Contraseña incorrecta"],
+      });
     }
 
-    const token = await createAccessToken({ id: user._id });
-    const { password: _, ...safe } = user;
+    const token = await createAccessToken({
+      id: userFound._id,
+      username: userFound.username,
+    });
 
-    res.status(200).json({ ...safe, token });
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+    });
+
+    res.json({
+      id: userFound._id,
+      username: userFound.username,
+      email: userFound.email,
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-export const profile = async (req, res) => {
-  try {
-    const { id } = req.params; // id de Mongo
-    const user = await User.findById(id).lean();
-    if (!user)
-      return res.status(404).json({ message: "Usuario no encontrado" });
-    const { password, ...safe } = user;
-    res.status(200).json(safe);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
+export const verifyToken = async (req, res) => {
+  const { token } = req.cookies;
+  if (!token) return res.send(false);
+
+  jwt.verify(token, TOKEN_SECRET, async (error, user) => {
+    if (error) return res.sendStatus(401);
+
+    const userFound = await User.findById(user.id);
+    if (!userFound) return res.sendStatus(401);
+
+    return res.json({
+      id: userFound._id,
+      username: userFound.username,
+      email: userFound.email,
+    });
+  });
+};
+
+export const logout = async (req, res) => {
+  res.cookie("token", "", {
+    httpOnly: true,
+    secure: true,
+    expires: new Date(0),
+  });
+  return res.sendStatus(200);
 };

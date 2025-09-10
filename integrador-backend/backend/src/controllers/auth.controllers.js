@@ -1,6 +1,8 @@
+import { TOKEN_SECRET } from "../config.js";
 import { createAccessToken } from "../libs/jwt.js";
 import User from "../models/users.models.js";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 export const register = async (req, res) => {
   try {
@@ -9,9 +11,7 @@ export const register = async (req, res) => {
     const userFound = await User.findOne({ email });
 
     if (userFound)
-      return res.status(400).json({
-        message: ["El email ya esta en uso"],
-      });
+      return res.status(400).json({ message: ["El email ya esta registrado"] });
 
     const passwordHash = await bcrypt.hash(password, 10);
 
@@ -37,7 +37,7 @@ export const register = async (req, res) => {
       updatedAt: userSaved.updatedAt,
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: [error.message] });
   }
 };
 

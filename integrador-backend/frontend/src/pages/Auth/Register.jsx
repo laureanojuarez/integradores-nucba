@@ -1,17 +1,18 @@
-import { ErrorMessage, Field, Form, Formik } from "formik";
-import { registerRequest } from "../../api/auth";
+import {ErrorMessage, Field, Form, Formik} from "formik";
+import {registerRequest} from "../../api/auth";
+import {useAuth} from "../../context/AuthProvider";
 
 export default function RegisterPage() {
-  const handleSubmit = async (values, { setSubmitting, setStatus }) => {
-    const res = await registerRequest(values);
-    console.log(res);
+  const {signup} = useAuth();
+  const handleSubmit = async (values) => {
+    await signup(values);
   };
 
   return (
     <div>
       <h1>Registro</h1>
       <Formik
-        initialValues={{ dni: "", username: "", email: "", password: "" }}
+        initialValues={{dni: "", username: "", email: "", password: ""}}
         validate={(values) => {
           const errors = {};
 

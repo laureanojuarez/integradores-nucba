@@ -1,11 +1,13 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { films } from "../../mock/films";
-import { useState } from "react";
-import { Button } from "../../components/UI/Button";
+import {useNavigate, useParams} from "react-router-dom";
+import {films} from "../../mock/films";
+import {useState} from "react";
+import {Button} from "../../components/UI/Button";
+import {useAuth} from "../../context/AuthProvider";
 
 export default function FilmDetail() {
-  const { slug } = useParams();
+  const {slug} = useParams();
   const navigate = useNavigate();
+  const {isAuthenticated} = useAuth();
   const film = films.find((f) => f.slug === slug);
 
   const [activeDay, setActiveDay] = useState(null);
@@ -15,9 +17,20 @@ export default function FilmDetail() {
   const isReadyToPurchase = activeDay && activeTime;
 
   const handlePurchase = () => {
-    if (isReadyToPurchase) {
-      navigate("/login");
+    if (!isReadyToPurchase) return;
+
+    if (!isAuthenticated) {
+      navigate("/auth/login");
+      return;
     }
+
+    navigate("checkout", {
+      state: {
+        film: film.title,
+        day: activeDay,
+        time: activeTime,
+      },
+    });
   };
 
   if (!film) {
@@ -102,11 +115,12 @@ export default function FilmDetail() {
                 onClick={handlePurchase}
                 disabled={!isReadyToPurchase}
               >
-                COMPRAR ENTRADAS
+                {!isAuthenticated && isReadyToPurchase
+                  ? "INICIAR SESIÓN PARA COMPRAR"
+                  : "COMPRAR ENTRADAS"}
               </Button>
             </section>
           </div>
-          <div></div>
         </div>
       )}
     </div>

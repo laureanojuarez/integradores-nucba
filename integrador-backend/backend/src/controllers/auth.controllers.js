@@ -1,17 +1,28 @@
-import { TOKEN_SECRET } from "../config.js";
-import { createAccessToken } from "../libs/jwt.js";
+import {TOKEN_SECRET} from "../config.js";
+import {createAccessToken} from "../libs/jwt.js";
 import User from "../models/users.models.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
+const setAuthCookie = (res, token) => {
+  const isProd = process.env.NODE_ENV === "production";
+  res.cookie("token", token, {
+    httpOnly: process.env.NODE_ENV !== "development",
+    secure: isProd,
+    sameSite: isProd ? "none" : "lax",
+    path: "/",
+    maxAge: 1000 * 60 * 60 * 24,
+  });
+};
+
 export const register = async (req, res) => {
   try {
-    const { dni, email, password, username } = req.body;
+    const {dni, email, password, username} = req.body;
 
-    const userFound = await User.findOne({ email });
+    const userFound = await User.findOne({email});
 
     if (userFound)
-      return res.status(400).json({ message: ["El email ya esta registrado"] });
+      return res.status(400).json({message: ["El email ya esta registrado"]});
 
     const passwordHash = await bcrypt.hash(password, 10);
 
@@ -27,24 +38,22 @@ export const register = async (req, res) => {
     const token = await createAccessToken({
       id: userSaved._id,
     });
+    setAuthCookie(res, token);
 
     res.json({
       id: userSaved._id,
       username: userSaved.username,
       email: userSaved.email,
-      token: token,
-      createdAt: userSaved.createdAt,
-      updatedAt: userSaved.updatedAt,
     });
   } catch (error) {
-    res.status(500).json({ message: [error.message] });
+    res.status(500).json({message: [error.message]});
   }
 };
 
 export const login = async (req, res) => {
   try {
-    const { email, password } = req.body;
-    const userFound = await User.findOne({ email });
+    const {email, password} = req.body;
+    const userFound = await User.findOne({email});
 
     if (!userFound)
       return res.status(400).json({
@@ -62,12 +71,7 @@ export const login = async (req, res) => {
       id: userFound._id,
       username: userFound.username,
     });
-
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: true,
-      sameSite: "none",
-    });
+    setAuthCookie(res, token);
 
     res.json({
       id: userFound._id,
@@ -75,19 +79,19 @@ export const login = async (req, res) => {
       email: userFound.email,
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({message: error.message});
   }
 };
 
 export const verifyToken = async (req, res) => {
-  const { token } = req.cookies;
-  if (!token) return res.send(false);
+  const {token} = req.cookies;
+  if (!token) return res.json(false);
 
   jwt.verify(token, TOKEN_SECRET, async (error, user) => {
-    if (error) return res.sendStatus(401);
+    if (error) return res.json(false);
 
     const userFound = await User.findById(user.id);
-    if (!userFound) return res.sendStatus(401);
+    if (!userFound) return res.json(401);
 
     return res.json({
       id: userFound._id,
@@ -98,9 +102,12 @@ export const verifyToken = async (req, res) => {
 };
 
 export const logout = async (req, res) => {
+  const isProd = process.env.NODE_ENV === "production";
   res.cookie("token", "", {
     httpOnly: true,
-    secure: true,
+    secure: isProd,
+    sameSite: isProd ? "none" : "lax",
+    path: "/",
     expires: new Date(0),
   });
   return res.sendStatus(200);

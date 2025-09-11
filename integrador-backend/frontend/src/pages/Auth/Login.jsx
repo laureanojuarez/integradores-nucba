@@ -1,12 +1,24 @@
 import {Link} from "react-router-dom";
 import {Form, Field, ErrorMessage, Formik} from "formik";
+import {useAuth} from "../../context/AuthProvider";
 
 export default function LoginPage() {
-  const handleSubmit = async (values) => {
-    console.log(values);
+  const {signin, errors: signinErrors} = useAuth();
+  const handleSubmit = async (data) => {
+    await signin(data);
   };
   return (
     <div className="flex flex-col items-center justify-center min-h-screen ">
+      <div>
+        {signinErrors.map((error, index) => (
+          <div
+            key={index}
+            className="bg-red-500 text-white p-2 mb-2 rounded-md"
+          >
+            {error}
+          </div>
+        ))}
+      </div>
       <h1>Buenas!, que bueno verte por aca</h1>
       <div className="w-96">
         <Formik
@@ -52,9 +64,12 @@ export default function LoginPage() {
           </Form>
         </Formik>
         <span>Olvide mi contraseña</span>
-        <Link to={"/register"}>
-          <button className="w-full px-4 py-2 bg-red-500">CREAR CUENTA</button>
-        </Link>
+        <div className="w-full justify-between flex">
+          <span>No tienes cuenta?</span>
+          <Link to={"/register"}>
+            <span className="text-blue-300">Registrate</span>
+          </Link>
+        </div>
       </div>
     </div>
   );

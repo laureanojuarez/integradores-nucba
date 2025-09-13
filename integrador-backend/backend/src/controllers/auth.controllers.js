@@ -1,6 +1,6 @@
 import {TOKEN_SECRET} from "../config.js";
 import {createAccessToken} from "../libs/jwt.js";
-import User from "../models/users.models.js";
+import Usuario from "../models/users.models.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
@@ -17,9 +17,9 @@ const setAuthCookie = (res, token) => {
 
 export const register = async (req, res) => {
   try {
-    const {dni, email, password, username} = req.body;
+    const {username, email, password} = req.body;
 
-    const userFound = await User.findOne({email});
+    const userFound = await Usuario.findOne({email});
 
     if (userFound)
       return res.status(400).json({message: ["El email ya esta registrado"]});
@@ -53,7 +53,7 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const {email, password} = req.body;
-    const userFound = await User.findOne({email});
+    const userFound = await Usuario.findOne({email});
 
     if (!userFound)
       return res.status(400).json({
@@ -90,7 +90,7 @@ export const verifyToken = async (req, res) => {
   jwt.verify(token, TOKEN_SECRET, async (error, user) => {
     if (error) return res.json(false);
 
-    const userFound = await User.findById(user.id);
+    const userFound = await Usuario.findById(user.id);
     if (!userFound) return res.json(401);
 
     return res.json({

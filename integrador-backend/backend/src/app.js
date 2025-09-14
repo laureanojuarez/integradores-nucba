@@ -14,7 +14,7 @@ app.use(
     credentials: true,
     origin: [
       "http://localhost:5173",
-      "https://cine-rosario.vercel.app/",
+      "https://cine-rosario.vercel.app",
       "https://cinema-backend-sq1k.onrender.com",
     ],
   })

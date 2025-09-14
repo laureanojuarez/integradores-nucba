@@ -1,7 +1,7 @@
-import {useEffect} from "react";
+import { useEffect } from "react";
 
-const Layout = ({children, fullWidthBanner = false}) => {
-  const {pathname} = window.location;
+const Layout = ({ children, fullWidthBanner = false }) => {
+  const { pathname } = window.location;
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -13,7 +13,7 @@ const Layout = ({children, fullWidthBanner = false}) => {
 
   return (
     <main className="w-full min-h-screen">
-      <div className="max-w-5xl mx-auto w-full min-h-screen flex flex-col px-4">
+      <div className="max-w-5xl mx-auto w-full min-h-screen flex flex-col ">
         {children}
       </div>
     </main>

@@ -38,7 +38,7 @@ export const FilmsBanner = () => {
   }
 
   return (
-    <div className="w-full mb-6 sm:mb-8 -mx-4 sm:mx-0">
+    <div className="w-full">
       <Carousel
         autoPlay={true}
         interval={5000}

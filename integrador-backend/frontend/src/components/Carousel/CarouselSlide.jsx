@@ -1,9 +1,8 @@
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
-export const CarouselSlide = ({film}) => {
+export const CarouselSlide = ({ film }) => {
   return (
     <div className="relative w-full h-full flex-shrink-0">
-      {/* Imagen de fondo */}
       <img
         src={film.backdrop || film.image}
         alt={film.titulo}
@@ -12,34 +11,33 @@ export const CarouselSlide = ({film}) => {
         draggable={false}
       />
 
-      {/* Overlay gradient */}
       <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
 
-      {/* Contenido */}
-      <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+      <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-6 md:p-8">
         <div className="max-w-2xl">
-          <h3 className="text-2xl md:text-4xl font-bold text-white mb-2 md:mb-4">
+          <h3 className="text-lg sm:text-2xl md:text-4xl font-bold text-white mb-1 sm:mb-2 md:mb-4 line-clamp-2">
             {film.titulo}
           </h3>
 
-          <div className="flex items-center gap-4 mb-3 md:mb-4">
-            <span className="px-3 py-1 bg-red-600 text-white text-sm font-medium rounded">
+          <div className="flex items-center gap-2 sm:gap-4 mb-2 sm:mb-3 md:mb-4">
+            <span className="px-2 sm:px-3 py-0.5 sm:py-1 bg-red-600 text-white text-xs sm:text-sm font-medium rounded">
               {film.genero}
             </span>
             {film.duracion && (
-              <span className="text-white/80 text-sm">{film.duracion} min</span>
+              <span className="text-white/80 text-xs sm:text-sm">
+                {film.duracion} min
+              </span>
             )}
           </div>
 
           {film.overview && (
-            <p className="text-white/90 text-sm md:text-base mb-4 md:mb-6 line-clamp-3">
+            <p className="text-white/90 text-xs sm:text-sm md:text-base mb-3 sm:mb-4 md:mb-6 line-clamp-2 sm:line-clamp-3 hidden sm:block">
               {film.overview}
             </p>
           )}
-
           <Link
             to={`/films/${film.id}`}
-            className="inline-flex items-center px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition-colors"
+            className="inline-flex items-center px-3 sm:px-6 py-2 sm:py-3 bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm md:text-base font-medium rounded-lg transition-colors"
           >
             Ver más
           </Link>

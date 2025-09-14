@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import { Button } from "../../components/UI/Button";
 import { Seats } from "../../components/Seats/Seats";
-import { fetchAvailability, reserveSeats } from "../../api/seats";
+import { confirmSeat, fetchAvailability, reserveSeats } from "../../api/seats";
 import { fetchFilmById } from "../../api/films";
 import { useSelector } from "react-redux";
 import { CartTab } from "../../components/CartTab/CartTab";
@@ -148,21 +148,10 @@ export default function FilmDetail() {
         columna: Number(asiento.columna),
       }));
 
-      console.log("Reserva -> payloads", payloads);
+      const seatsCopy = [...selected];
+      const created = await Promise.all(payloads.map((p) => reserveSeats(p)));
+      await Promise.all(created.map((b) => confirmSeat(b._id)));
 
-      await Promise.all(payloads.map((p) => reserveSeats(p)));
-
-      // Actualizar el estado local inmediatamente
-      setUnavailable((prev) => [
-        ...prev,
-        ...selected.map((seat) => ({
-          fila: Number(seat.fila),
-          columna: Number(seat.columna),
-          estado: "pendiente",
-        })),
-      ]);
-
-      // Refrescar datos del servidor
       if (film?.id && horarioDate && selectedSala) {
         try {
           const updatedData = await fetchAvailability({
@@ -176,7 +165,7 @@ export default function FilmDetail() {
         }
       }
 
-      setSelected([]); // Limpiar selección
+      setSelected([]);
       setShowCart(false);
 
       navigate("/checkout", {
@@ -184,7 +173,7 @@ export default function FilmDetail() {
           film: film.title,
           day: activeDay,
           time: activeTime,
-          seats: selected,
+          seats: seatsCopy,
         },
       });
     } catch (e) {

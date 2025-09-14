@@ -1,24 +1,14 @@
 import mongoose from "mongoose";
 
 const ButacaSchema = new mongoose.Schema({
-  peliculaId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Pelicula",
-    required: true,
-  },
+  peliculaId: { type: String, required: true },
   salaId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Sala",
     required: true,
   },
-  horario: {
-    type: Date,
-    required: true,
-  },
-  fila: {
-    type: Number,
-    required: true,
-  },
+  horario: { type: Date, required: true },
+  fila: { type: Number, required: true },
   columna: {
     type: Number,
     required: true,

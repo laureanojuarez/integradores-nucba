@@ -64,3 +64,25 @@ export async function reserveSeats({
     throw new Error(message || "Error al reservar asientos");
   }
 }
+
+export async function confirmSeat(id) {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("No hay token de autenticación");
+
+    const { data } = await api.post(
+      `/confirmar/${id}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return data;
+  } catch (err) {
+    const serverMsg = err.response?.data?.error ?? err.response?.data?.message;
+    const message = Array.isArray(serverMsg) ? serverMsg[0] : serverMsg;
+    throw new Error(message || "Error al confirmar reserva");
+  }
+}

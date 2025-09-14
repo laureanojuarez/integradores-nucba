@@ -5,16 +5,12 @@ const IMG_BASE = "https://image.tmdb.org/t/p/w500";
 const IMG_BASE_BACKDROP = "https://image.tmdb.org/t/p/w1280";
 
 async function tmdb(path) {
-  console.log("🔍 TMDB Token exists:", !!process.env.TMDB_TOKEN);
-  console.log("🔍 TMDB URL:", `${BASE_URL}${path}`);
   const res = await fetch(`${BASE_URL}${path}`, {
     headers: {
       Authorization: `Bearer ${process.env.TMDB_TOKEN}`,
       "Content-Type": "application/json;charset=utf-8",
     },
   });
-
-  console.log("🔍 TMDB Response Status:", res.status);
 
   if (!res.ok) {
     throw new Error(`TMDB error ${res.status}`);
@@ -24,7 +20,6 @@ async function tmdb(path) {
 
 export const getPeliculas = async (_req, res) => {
   try {
-    // 1. Obtener películas de TMDB
     const { genres } = await tmdb(`/genre/movie/list?language=es-ES`).catch(
       () => ({
         genres: [],
@@ -34,7 +29,6 @@ export const getPeliculas = async (_req, res) => {
 
     const tmdbData = await tmdb(`/movie/now_playing?language=es-ES&page=1`);
 
-    // 2. Transformar películas de TMDB
     const tmdbMovies = (tmdbData.results || []).map((m) => ({
       _id: m.id.toString(), // Convertir a string para compatibilidad
       id: m.id,
@@ -172,11 +166,9 @@ export const deletePelicula = async (req, res) => {
 
 export const seedHorarios = async (req, res) => {
   try {
-    // Obtener películas de TMDB
     const tmdbData = await tmdb(`/movie/now_playing?language=es-ES&page=1`);
     const peliculas = tmdbData.results.slice(0, 8); // Solo las primeras 8
 
-    // Generar horarios para los próximos 10 días
     const generarHorarios = () => {
       const horarios = [];
       const hoy = new Date();
@@ -185,7 +177,6 @@ export const seedHorarios = async (req, res) => {
         const fecha = new Date(hoy);
         fecha.setDate(hoy.getDate() + dia);
 
-        // Horarios: 14:00, 16:30, 19:00, 21:30
         const horariosDia = ["14:00", "16:30", "19:00", "21:30"];
 
         horariosDia.forEach((hora) => {
@@ -201,12 +192,10 @@ export const seedHorarios = async (req, res) => {
     const horarios = generarHorarios();
     const resultados = [];
 
-    // Agregar horarios a cada película
     for (const movie of peliculas) {
       let pelicula = await Pelicula.findOne({ tmdbId: movie.id });
 
       if (pelicula) {
-        // Solo agregar horarios si no tiene ninguno
         if (pelicula.horarios.length === 0) {
           pelicula.horarios = horarios;
           await pelicula.save();
@@ -216,7 +205,7 @@ export const seedHorarios = async (req, res) => {
           tmdbId: movie.id,
           titulo: movie.title,
           genero: movie.genre_ids?.[0] ? "Acción" : "Película",
-          duracion: 120, // Duración default
+          duracion: 120,
           poster: movie.poster_path ? `${IMG_BASE}${movie.poster_path}` : null,
           horarios: horarios,
         });

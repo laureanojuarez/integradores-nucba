@@ -4,7 +4,6 @@ import usuarioRoutes from "./routes/usuario.routes.js";
 import butacaRoutes from "./routes/butaca.routes.js";
 import filmsRoutes from "./routes/films.routes.js";
 import salaRoutes from "./routes/sala.routes.js";
-import { FRONTEND_URL } from "./config.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 

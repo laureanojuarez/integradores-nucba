@@ -1,7 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const BASE_URL = "http://localhost:3000/api/usuario";
+const BASE_URL = import.meta.env.VITE_API_URL
+  ? `${import.meta.env.VITE_API_URL}/api/usuario`
+  : "https://cinema-backend-sq1k.onrender.com/api/usuario";
 
 export const loginUser = createAsyncThunk(
   "auth/loginUser",

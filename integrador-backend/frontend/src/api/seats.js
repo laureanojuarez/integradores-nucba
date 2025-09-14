@@ -12,12 +12,13 @@ const toISO = (horario) =>
     ? horario.toISOString()
     : new Date(horario).toISOString();
 
-export const fetchAvailability = async ({peliculaId, salaId, horario}) => {
+export const fetchAvailability = async ({ peliculaId, salaId, horario }) => {
   try {
-    const {data} = await api.get("/availability", {
-      params: {peliculaId, salaId, horario: toISO(horario)},
+    const { data } = await api.get("/availability", {
+      params: { peliculaId, salaId, horario: toISO(horario) },
     });
-    return data; // { taken: [{fila, columna}] }
+    console.log("Butacas ocupadas recibidas:", data); // Para debug
+    return data;
   } catch (err) {
     throw new Error(
       err.response?.data?.message || "Error obteniendo disponibilidad"
@@ -25,16 +26,40 @@ export const fetchAvailability = async ({peliculaId, salaId, horario}) => {
   }
 };
 
-export const reserveSeats = async ({peliculaId, salaId, horario, asientos}) => {
+export async function reserveSeats({
+  peliculaId,
+  salaId,
+  horario,
+  fila,
+  columna,
+}) {
   try {
-    const {data} = await api.post("/reserve", {
-      peliculaId,
-      salaId,
-      horario: toISO(horario),
-      asientos,
-    });
+    const token = localStorage.getItem("token");
+    if (!token) {
+      throw new Error("No hay token de autenticación");
+    }
+
+    const { data } = await api.post(
+      "/reservar",
+      {
+        peliculaId,
+        salaId,
+        horario: toISO(horario),
+        fila: Number(fila),
+        columna: Number(columna),
+        // No enviar usuarioId, se obtiene del token en el backend
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     return data;
   } catch (err) {
-    throw new Error(err.response?.data?.message || "Error al reservar");
+    console.error("Error en reserveSeats:", err);
+    const serverMsg = err.response?.data?.error ?? err.response?.data?.message;
+    const message = Array.isArray(serverMsg) ? serverMsg[0] : serverMsg;
+    throw new Error(message || "Error al reservar asientos");
   }
-};
+}

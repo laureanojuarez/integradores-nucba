@@ -1,23 +1,14 @@
 import jwt from "jsonwebtoken";
-import {TOKEN_SECRET} from "../config.js";
 
-export const auth = (req, res, next) => {
+export const authMiddleware = (req, res, next) => {
+  const token = req.headers["authorization"]?.split(" ")[1]; // "Bearer token"
+  if (!token) return res.status(401).json({ error: "Acceso denegado" });
+
   try {
-    const {token} = req.cookies;
-
-    if (!token) {
-      return res.status(401).json({message: "No token, Unauthorized"});
-    }
-
-    jwt.verify(token, TOKEN_SECRET, (error, user) => {
-      if (error) {
-        return res.status(401).json({message: "Token is not valid"});
-      }
-
-      req.user = user;
-      next();
-    });
-  } catch (error) {
-    return res.status(500).json({message: error.message});
+    const verified = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = verified; // { id, email, rol }
+    next();
+  } catch (err) {
+    res.status(400).json({ error: "Token no válido" });
   }
 };

@@ -1,4 +1,4 @@
-import {Route, Routes} from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import LoginPage from "../pages/Auth/Login";
 import RegisterPage from "../pages/Auth/Register";
 import FilmDetail from "../pages/Films/[id]";
@@ -14,7 +14,7 @@ export default function AppRoutes() {
         <Route index element={<Home />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
-        <Route path="films/:slug" element={<FilmDetail />} />
+        <Route path="films/:id" element={<FilmDetail />} />
 
         {/* Rutas protegidas */}
         <Route

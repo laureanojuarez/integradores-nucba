@@ -1,7 +1,9 @@
-import {Navigate, useLocation} from "react-router-dom";
-import {useAuth} from "../context/AuthProvider";
-export default function ProtectedRoute({children}) {
-  const {isAuthenticated, loading} = useAuth();
+import { Navigate, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+
+export default function ProtectedRoute({ children }) {
+  const { token, loading } = useSelector((s) => s.auth);
+  const isAuthenticated = Boolean(token);
   const location = useLocation();
 
   if (loading) {
@@ -13,8 +15,7 @@ export default function ProtectedRoute({children}) {
   }
 
   if (!isAuthenticated) {
-    return <Navigate to="/login" state={{from: location}} replace />;
+    return <Navigate to="/login" state={{ from: location }} replace />;
   }
-
   return children;
 }

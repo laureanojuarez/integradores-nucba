@@ -1,6 +1,5 @@
 import { FilmCard } from "./FilmCard";
 
-// Lista ahora solo presenta (sin fetch interno)
 export const FilmsList = ({ films }) => {
   return (
     <div className="py-2 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">

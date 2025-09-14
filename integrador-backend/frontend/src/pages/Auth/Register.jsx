@@ -1,18 +1,29 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { useAuth } from "../../context/AuthProvider";
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser } from "../../redux/slices/auth/authSlice";
 
 export default function RegisterPage() {
-  const { signup, isAuthenticated, errors: registerErrors } = useAuth();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { loading, error, token } = useSelector((s) => s.auth);
 
   useEffect(() => {
-    if (isAuthenticated) navigate("/");
-  }, [isAuthenticated]);
+    if (token) navigate("/");
+  }, [token]);
 
   const handleSubmit = async (values) => {
-    await signup(values);
+    const action = await dispatch(
+      registerUser({
+        nombre: values.username,
+        email: values.email,
+        password: values.password,
+      })
+    );
+    if (registerUser.fulfilled.match(action)) {
+      navigate("/login");
+    }
   };
 
   return (
@@ -22,26 +33,15 @@ export default function RegisterPage() {
           Registro
         </h1>
 
-        {registerErrors.length > 0 && (
+        {error && (
           <div className="bg-red-900/30 border border-red-600 rounded p-3 mb-4">
-            {registerErrors.map((error, i) => (
-              <div key={i} className="text-red-400 text-sm">
-                {error}
-              </div>
-            ))}
+            <div className="text-red-400 text-sm">{error}</div>
           </div>
         )}
-
         <Formik
-          initialValues={{ dni: "", username: "", email: "", password: "" }}
+          initialValues={{ username: "", email: "", password: "" }}
           validate={(values) => {
             const errors = {};
-
-            if (!values.dni) {
-              errors.dni = "DNI es requerido";
-            } else if (!/^\d{7,8}$/.test(values.dni)) {
-              errors.dni = "DNI debe tener 7-8 dígitos";
-            }
 
             if (!values.username) {
               errors.username = "Nombre de usuario es requerido";
@@ -64,20 +64,6 @@ export default function RegisterPage() {
           onSubmit={handleSubmit}
         >
           <Form className="flex flex-col gap-4">
-            <div className="flex flex-col">
-              <Field
-                type="text"
-                name="dni"
-                placeholder="DNI"
-                className="p-3 bg-neutral-700 border border-neutral-600 rounded text-white placeholder-neutral-400 focus:outline-none focus:border-red-500"
-              />
-              <ErrorMessage
-                name="dni"
-                component="div"
-                className="text-red-400 text-sm mt-1"
-              />
-            </div>
-
             <div className="flex flex-col">
               <Field
                 type="text"
@@ -122,9 +108,10 @@ export default function RegisterPage() {
 
             <button
               type="submit"
+              disabled={loading}
               className="bg-red-600 hover:bg-red-700 text-white font-semibold py-3 rounded transition-colors mt-4"
             >
-              Registrarse
+              {loading ? "Registrando..." : "Registrarse"}
             </button>
           </Form>
         </Formik>

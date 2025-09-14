@@ -6,7 +6,7 @@ export const FilmCard = ({ film }) => {
 
   return (
     <div className="group relative flex flex-col gap-3 rounded-xl border border-neutral-700/60 bg-neutral-800/70 shadow-sm backdrop-blur transition hover:-translate-y-1 hover:border-neutral-500 hover:shadow-lg hover:shadow-black/40">
-      <Link to={`/films/${film.slug}`} className="">
+      <Link to={`/films/${film.id}`} className="">
         <div className="relative h-80 w-full overflow-hidden rounded-t-xl ring-1 ring-neutral-600/40">
           {hasImage ? (
             <img
@@ -23,7 +23,6 @@ export const FilmCard = ({ film }) => {
               </span>
             </div>
           )}
-          {/* Overlay suave */}
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent opacity-70 group-hover:opacity-60 transition" />
         </div>
       </Link>
@@ -33,10 +32,7 @@ export const FilmCard = ({ film }) => {
           {film.title}
         </h3>
 
-        <span
-          className="w-fit rounded-md bg-neutral-700/70 px-2 py-1 text-[11px] font-medium uppercase tracking-wide 
-                     text-neutral-200 ring-1 ring-neutral-600/40"
-        >
+        <span className="w-fit rounded-md bg-neutral-700/70 px-2 py-1 text-[11px] font-medium uppercase tracking-wide text-neutral-200 ring-1 ring-neutral-600/40">
           {film.type}
         </span>
 

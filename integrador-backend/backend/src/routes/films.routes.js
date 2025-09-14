@@ -1,14 +1,14 @@
-import {Router} from "express";
+import { Router } from "express";
 import {
-  getFilms,
-  getFilmById,
-  getFilmBySlug,
+  getPeliculas,
+  getPeliculaById,
+  createPelicula,
 } from "../controllers/films.controllers.js";
 
 const router = Router();
 
-router.get("/", getFilms);
-router.get("/id/:id", getFilmById);
-router.get("/slug/:slug", getFilmBySlug);
+router.get("/", getPeliculas);
+router.get("/:id", getPeliculaById);
+router.post("/", createPelicula);
 
 export default router;

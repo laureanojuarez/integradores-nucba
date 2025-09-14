@@ -1,10 +1,10 @@
 export const Seats = ({
+  unavailable = [],
+  selected = [],
+  onToggle,
   rows = 6,
   leftCols = 4,
   rightCols = 4,
-  unavailable = [], // [{fila, columna}]
-  selected = [], // [{fila, columna}]
-  onToggle, // (fila, columna) => void
 }) => {
   const isTaken = (r, c) =>
     unavailable.some((s) => s.fila === r && s.columna === c);
@@ -60,10 +60,10 @@ const Stage = () => (
   </div>
 );
 
-const Aisle = ({rows}) => (
+const Aisle = ({ rows }) => (
   <div
     className="col-start-5 self-stretch rounded-md border border-blue-500/30 bg-gradient-to-b from-blue-400/10 via-blue-500/10 to-blue-600/10 relative shadow-inner"
-    style={{gridRow: `1 / span ${rows}`}}
+    style={{ gridRow: `1 / span ${rows}` }}
   >
     <div className="absolute inset-0 flex items-center justify-center">
       <span className="-rotate-90 text-[10px] sm:text-xs font-medium tracking-widest text-blue-200">
@@ -73,7 +73,7 @@ const Aisle = ({rows}) => (
   </div>
 );
 
-const Seat = ({variant = "available", onClick}) => {
+const Seat = ({ variant = "available", onClick }) => {
   const base =
     "relative w-7 h-7 sm:w-8 sm:h-8 rounded-md border shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)] transition-colors";
   const foot =

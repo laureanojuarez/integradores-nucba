@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API = import.meta.env.VITE_API_URL || "http://localhost:3000";
+const API =
+  import.meta.env.VITE_API_URL || "https://cinema-backend-sq1k.onrender.com";
 
 const api = axios.create({
   baseURL: `${API}/api/butacas`,

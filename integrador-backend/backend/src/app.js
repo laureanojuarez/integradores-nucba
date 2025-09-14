@@ -13,7 +13,11 @@ const app = express();
 app.use(
   cors({
     credentials: true,
-    origin: FRONTEND_URL,
+    origin: [
+      "http://localhost:5173",
+      "https://cine-rosario.vercel.app/",
+      "https://cinema-backend-sq1k.onrender.com",
+    ],
   })
 );
 

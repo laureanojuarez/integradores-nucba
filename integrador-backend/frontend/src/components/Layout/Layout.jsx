@@ -1,11 +1,15 @@
-import { useEffect } from "react";
+import {useEffect} from "react";
 
-const Layout = ({ children }) => {
-  const { pathname } = window.location;
+const Layout = ({children, fullWidthBanner = false}) => {
+  const {pathname} = window.location;
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
+
+  if (fullWidthBanner) {
+    return <main className="w-full min-h-screen">{children}</main>;
+  }
 
   return (
     <main className="w-full min-h-screen">

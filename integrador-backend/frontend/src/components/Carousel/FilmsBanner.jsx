@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchFilms } from "../../hooks/useFetchFilms";
+import { fetchFilms } from "../../api/films";
 import Carousel from "../Carousel/Carousel";
 import { CarouselSlide } from "../Carousel/CarouselSlide";
 

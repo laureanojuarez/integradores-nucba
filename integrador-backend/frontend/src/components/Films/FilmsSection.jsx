@@ -1,19 +1,18 @@
-import {useEffect, useState} from "react";
-import {FilmsList} from "./FilmList";
-import {fetchFilms} from "../../hooks/useFetchFilms";
+import { useEffect, useState } from "react";
+import { FilmsList } from "./FilmList";
+import { fetchFilms } from "../../api/films";
 
 export const FilmsSection = () => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // normaliza backend -> frontend
   const normalizeFilm = (f) => ({
     id: f.id,
     title: f.titulo,
     type: f.genero,
     duration: f.duracion ? `${f.duracion} min` : null,
-    image: f.image || null,
+    image: f.poster || f.image || null,
   });
 
   useEffect(() => {

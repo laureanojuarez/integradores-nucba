@@ -1,11 +1,35 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose from "mongoose";
 
-const PeliculaSchema = new Schema({
-  titulo: { type: String, required: true },
-  duracion: { type: Number, required: true },
-  genero: { type: String, required: true },
-  poster: { type: String },
-  horarios: [Date],
-});
+const peliculaSchema = new mongoose.Schema(
+  {
+    // Mantener compatibilidad con sistema anterior
+    titulo: {
+      type: String,
+      required: true,
+    },
+    duracion: {
+      type: Number,
+    },
+    genero: {
+      type: String,
+    },
+    poster: {
+      type: String,
+    },
+    horarios: [
+      {
+        type: Date,
+      },
+    ],
+    tmdbId: {
+      type: Number,
+      unique: true,
+      sparse: true,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-export default mongoose.model("Pelicula", PeliculaSchema);
+export default mongoose.model("Pelicula", peliculaSchema);

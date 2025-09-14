@@ -7,7 +7,6 @@ import { fetchFilmById } from "../../api/films";
 import { useSelector } from "react-redux";
 import { CartTab } from "../../components/CartTab/CartTab";
 
-// Días de la semana
 const dayNames = [
   "Domingo",
   "Lunes",
@@ -18,7 +17,6 @@ const dayNames = [
   "Sábado",
 ];
 
-// Agrupa horarios por día
 const groupShowtimes = (dates = []) => {
   const map = {};
   for (const iso of dates) {

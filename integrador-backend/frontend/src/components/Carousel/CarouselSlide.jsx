@@ -4,11 +4,16 @@ export const CarouselSlide = ({ film }) => {
   return (
     <div className="relative w-full h-full flex-shrink-0">
       <img
-        src={film.backdrop || film.image}
+        src={film.backdrop || film.poster || film.image} // ← CAMBIO: más opciones de fallback
         alt={film.titulo}
         className="w-full h-full object-cover"
         loading="lazy"
         draggable={false}
+        onError={(e) => {
+          // Fallback si la imagen no carga
+          e.target.style.display = "none";
+          e.target.nextElementSibling.style.display = "flex";
+        }}
       />
 
       <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />

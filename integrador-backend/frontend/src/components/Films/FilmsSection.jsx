@@ -17,11 +17,16 @@ export const FilmsSection = () => {
 
   useEffect(() => {
     let ignore = false;
+    console.log("Llamando a fetchFilms..."); // DEBUG
     fetchFilms()
       .then((data) => {
+        console.log("Datos recibidos:", data); // DEBUG
         if (!ignore) setItems(data.map(normalizeFilm));
       })
-      .catch((e) => !ignore && setError(e.message || "Error al cargar"))
+      .catch((e) => {
+        console.error("Error en fetchFilms:", e); // DEBUG
+        !ignore && setError(e.message || "Error al cargar");
+      })
       .finally(() => !ignore && setLoading(false));
     return () => {
       ignore = true;

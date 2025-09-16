@@ -1,62 +1,69 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../../redux/slices/auth/authSlice";
+import { useAuth } from "../../context/AuthContext";
 
 export default function RegisterPage() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading, error, token } = useSelector((s) => s.auth);
+  const { register, loading, error, isAuthenticated } = useAuth();
 
   useEffect(() => {
-    if (token) navigate("/");
-  }, [token]);
+    if (isAuthenticated) {
+      navigate("/");
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleSubmit = async (values) => {
-    const action = await dispatch(
-      registerUser({
-        nombre: values.username,
-        email: values.email,
-        password: values.password,
-      })
-    );
-    if (registerUser.fulfilled.match(action)) {
+    const result = await register({
+      nombre: values.username,
+      email: values.email,
+      password: values.password,
+    });
+
+    if (result.success) {
       navigate("/login");
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 bg-black">
-      <div className="w-full max-w-md bg-neutral-800 rounded-lg p-8 shadow-lg">
-        <h1 className="text-2xl font-bold text-center mb-6 text-white">
-          Registro
-        </h1>
-
+    <main className="flex flex-col items-center justify-center min-h-screen">
+      <div className="w-96">
         {error && (
-          <div className="bg-red-900/30 border border-red-600 rounded p-3 mb-4">
-            <div className="text-red-400 text-sm">{error}</div>
+          <div className="bg-red-500 text-white p-2 mb-4 rounded-md">
+            {error}
           </div>
         )}
+
+        <h1 className="text-2xl font-bold mb-6 text-center">Registrarse</h1>
+
         <Formik
-          initialValues={{ username: "", email: "", password: "" }}
+          initialValues={{
+            username: "",
+            email: "",
+            password: "",
+          }}
           validate={(values) => {
             const errors = {};
 
             if (!values.username) {
-              errors.username = "Nombre de usuario es requerido";
+              errors.username = "Nombre requerido";
+            } else if (values.username.length < 2) {
+              errors.username = "Nombre muy corto";
             }
 
             if (!values.email) {
-              errors.email = "Email es requerido";
-            } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)) {
+              errors.email = "Email requerido";
+            } else if (
+              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+            ) {
               errors.email = "Email inválido";
             }
 
             if (!values.password) {
-              errors.password = "Contraseña es requerida";
+              errors.password = "Contraseña requerida";
             } else if (values.password.length < 6) {
-              errors.password = "Contraseña debe tener al menos 6 caracteres";
+              errors.password =
+                "La contraseña debe tener al menos 6 caracteres";
             }
 
             return errors;
@@ -64,67 +71,59 @@ export default function RegisterPage() {
           onSubmit={handleSubmit}
         >
           <Form className="flex flex-col gap-4">
-            <div className="flex flex-col">
-              <Field
-                type="text"
-                name="username"
-                placeholder="Nombre de usuario"
-                className="p-3 bg-neutral-700 border border-neutral-600 rounded text-white placeholder-neutral-400 focus:outline-none focus:border-red-500"
-              />
-              <ErrorMessage
-                name="username"
-                component="div"
-                className="text-red-400 text-sm mt-1"
-              />
-            </div>
+            <Field
+              type="text"
+              name="username"
+              placeholder="Nombre de usuario"
+              className="p-2 border rounded-md"
+            />
+            <ErrorMessage
+              name="username"
+              component="div"
+              className="text-red-500 text-sm"
+            />
 
-            <div className="flex flex-col">
-              <Field
-                type="email"
-                name="email"
-                placeholder="Correo electrónico"
-                className="p-3 bg-neutral-700 border border-neutral-600 rounded text-white placeholder-neutral-400 focus:outline-none focus:border-red-500"
-              />
-              <ErrorMessage
-                name="email"
-                component="div"
-                className="text-red-400 text-sm mt-1"
-              />
-            </div>
+            <Field
+              type="email"
+              name="email"
+              placeholder="Email"
+              className="p-2 border rounded-md"
+            />
+            <ErrorMessage
+              name="email"
+              component="div"
+              className="text-red-500 text-sm"
+            />
 
-            <div className="flex flex-col">
-              <Field
-                type="password"
-                name="password"
-                placeholder="Contraseña"
-                className="p-3 bg-neutral-700 border border-neutral-600 rounded text-white placeholder-neutral-400 focus:outline-none focus:border-red-500"
-              />
-              <ErrorMessage
-                name="password"
-                component="div"
-                className="text-red-400 text-sm mt-1"
-              />
-            </div>
+            <Field
+              type="password"
+              name="password"
+              placeholder="Contraseña"
+              className="p-2 border rounded-md"
+            />
+            <ErrorMessage
+              name="password"
+              component="div"
+              className="text-red-500 text-sm"
+            />
 
             <button
               type="submit"
               disabled={loading}
-              className="bg-red-600 hover:bg-red-700 text-white font-semibold py-3 rounded transition-colors mt-4"
+              className="bg-white text-black px-4 py-2 rounded-md w-full font-medium hover:bg-gray-100 transition disabled:opacity-50"
             >
               {loading ? "Registrando..." : "Registrarse"}
             </button>
           </Form>
         </Formik>
 
-        <div className="text-center mt-6">
-          <p className="text-neutral-400 text-sm">
-            ¿Ya tienes cuenta?{" "}
-            <Link to="/login" className="text-red-400 hover:text-red-300">
-              Inicia sesión
-            </Link>
-          </p>
-        </div>
+        <p className="text-center mt-4">
+          ¿Ya tienes cuenta?{" "}
+          <Link to="/login" className="text-blue-300">
+            Inicia sesión
+          </Link>
+        </p>
       </div>
-    </div>
+    </main>
   );
 }

@@ -4,8 +4,8 @@ import { Button } from "../../components/UI/Button";
 import { Seats } from "../../components/Seats/Seats";
 import { confirmSeat, fetchAvailability, reserveSeats } from "../../api/seats";
 import { fetchFilmById } from "../../api/films";
-import { useSelector } from "react-redux";
 import { CartTab } from "../../components/CartTab/CartTab";
+import { useAuth } from "../../context/AuthContext";
 
 const dayNames = [
   "Domingo",
@@ -36,6 +36,7 @@ const groupShowtimes = (dates = []) => {
 export default function FilmDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { user, token, isAuthenticated } = useAuth();
 
   const [film, setFilm] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -49,15 +50,13 @@ export default function FilmDetail() {
   const [unavailable, setUnavailable] = useState([]);
   const [selected, setSelected] = useState([]);
 
-  const { user, token } = useSelector((s) => s.auth);
-  const isAuthenticated = Boolean(token);
   const [showCart, setShowCart] = useState(false);
 
   useEffect(() => {
     fetchFilmById(id)
       .then((data) => {
         setFilm({
-          id: data._id ?? data.id,
+          id: data.id,
           title: data.titulo,
           type: data.genero,
           duration: data.duracion ? `${data.duracion} min` : null,
@@ -80,7 +79,8 @@ export default function FilmDetail() {
       .then((r) => r.json())
       .then((data) => {
         setSalas(data);
-        if (data.length > 0) setSelectedSala(data[0]._id);
+        // Cambiar _id por id (MySQL usa id, no _id)
+        if (data.length > 0) setSelectedSala(data[0].id);
       })
       .catch(() => setSalas([]));
   }, []);
@@ -150,7 +150,7 @@ export default function FilmDetail() {
 
       const seatsCopy = [...selected];
       const created = await Promise.all(payloads.map((p) => reserveSeats(p)));
-      await Promise.all(created.map((b) => confirmSeat(b._id)));
+      await Promise.all(created.map((b) => confirmSeat(b.id)));
 
       if (film?.id && horarioDate && selectedSala) {
         try {
@@ -229,11 +229,11 @@ export default function FilmDetail() {
                 </h2>
                 <ul className="mt-3 flex flex-wrap gap-2">
                   {salas.map((sala) => (
-                    <li key={sala._id}>
+                    <li key={sala.id}>
                       <Chip
-                        active={selectedSala === sala._id}
+                        active={selectedSala === sala.id}
                         onClick={() => {
-                          setSelectedSala(sala._id);
+                          setSelectedSala(sala.id);
                           setSelected([]);
                           setUnavailable([]);
                         }}
@@ -299,13 +299,13 @@ export default function FilmDetail() {
                   unavailable={unavailable}
                   selected={selected}
                   onToggle={toggleSeat}
-                  rows={salas.find((s) => s._id === selectedSala)?.filas || 6}
+                  rows={salas.find((s) => s.id === selectedSala)?.filas || 6}
                   leftCols={Math.floor(
-                    (salas.find((s) => s._id === selectedSala)?.columnas || 8) /
+                    (salas.find((s) => s.id === selectedSala)?.columnas || 8) /
                       2
                   )}
                   rightCols={Math.ceil(
-                    (salas.find((s) => s._id === selectedSala)?.columnas || 8) /
+                    (salas.find((s) => s.id === selectedSala)?.columnas || 8) /
                       2
                   )}
                 />

@@ -1,20 +1,23 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Field, ErrorMessage, Formik } from "formik";
-import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { loginUser } from "../../redux/slices/auth/authSlice";
+import { useAuth } from "../../context/AuthContext";
 
 export default function LoginPage() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading, error, token } = useSelector((state) => state.auth);
+  const { login, loading, error, isAuthenticated } = useAuth();
 
   useEffect(() => {
-    if (token) navigate("/");
-  }, [token]);
+    if (isAuthenticated) {
+      navigate("/");
+    }
+  }, [isAuthenticated, navigate]);
 
-  const handleSubmit = async (data) => {
-    await dispatch(loginUser(data));
+  const handleSubmit = async (values) => {
+    const result = await login(values);
+    if (result.success) {
+      navigate("/");
+    }
   };
 
   return (

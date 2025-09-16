@@ -21,15 +21,20 @@ const groupShowtimes = (dates = []) => {
   const map = {};
   for (const iso of dates) {
     const d = new Date(iso);
-    const day = dayNames[d.getDay()];
+
+    const day = dayNames[d.getUTCDay()];
+
     const time = d.toLocaleTimeString("es-AR", {
       hour: "2-digit",
       minute: "2-digit",
       hour12: false,
+      timeZone: "UTC",
     });
+
     map[day] ||= [];
     if (!map[day].includes(time)) map[day].push(time);
   }
+
   return map;
 };
 
@@ -79,10 +84,13 @@ export default function FilmDetail() {
       .then((r) => r.json())
       .then((data) => {
         setSalas(data);
-        // Cambiar _id por id (MySQL usa id, no _id)
+        console.log("Salas recibidas:", data); // DEBUG
         if (data.length > 0) setSelectedSala(data[0].id);
       })
-      .catch(() => setSalas([]));
+      .catch((error) => {
+        console.error("Error cargando salas:", error);
+        setSalas([]);
+      });
   }, []);
 
   // Agrupar horarios por día
@@ -91,15 +99,25 @@ export default function FilmDetail() {
   // Buscar fecha ISO del horario seleccionado
   const horarioDate = useMemo(() => {
     if (!activeDay || !activeTime || !film?.horarios) return null;
+
+    console.log("=== BUSCANDO HORARIO ISO ===");
+    console.log("Día activo:", activeDay);
+    console.log("Hora activa:", activeTime);
+
     return (
       film.horarios.find((iso) => {
         const d = new Date(iso);
-        const day = dayNames[d.getDay()];
+        const day = dayNames[d.getUTCDay()]; // CAMBIAR: usar getUTCDay()
         const time = d.toLocaleTimeString("es-AR", {
           hour: "2-digit",
           minute: "2-digit",
           hour12: false,
+          timeZone: "UTC", // CAMBIAR: usar UTC
         });
+
+        console.log(
+          `Comparando: ${day} === ${activeDay} && ${time} === ${activeTime}`
+        );
         return day === activeDay && time === activeTime;
       }) || null
     );
@@ -140,6 +158,14 @@ export default function FilmDetail() {
 
   const handleConfirmPurchase = async () => {
     try {
+      console.log("=== DEBUG RESERVA ===");
+      console.log(
+        "Backend URL:",
+        import.meta.env.VITE_API_URL || "http://localhost:3000"
+      );
+      console.log("Película ID:", film.id);
+      console.log("Sala ID:", selectedSala);
+      console.log("Horario:", horarioDate);
       const payloads = selected.map((asiento) => ({
         peliculaId: film.id,
         salaId: selectedSala,
@@ -147,7 +173,7 @@ export default function FilmDetail() {
         fila: Number(asiento.fila),
         columna: Number(asiento.columna),
       }));
-
+      console.log("Payloads a enviar:", payloads);
       const seatsCopy = [...selected];
       const created = await Promise.all(payloads.map((p) => reserveSeats(p)));
       await Promise.all(created.map((b) => confirmSeat(b.id)));

@@ -22,4 +22,13 @@ app.get("/health", (req, res) => res.send("OK"));
 
 app.listen(PORT, () => {
   console.log(`API escuchando en http://localhost:${PORT}`);
+  console.log("Rutas disponibles:");
+  console.log("- GET  /api/films");
+  console.log("- GET  /api/films/:id");
+  console.log("- GET  /api/availability");
+  console.log("- GET  /api/salas");
+  console.log("- POST /api/seats/reserve");
+  console.log("- PUT  /api/seats/confirm/:id");
+  console.log("- POST /api/auth/login");
+  console.log("- POST /api/auth/register");
 });

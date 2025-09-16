@@ -1,36 +1,27 @@
 import { Router } from "express";
-import pool from "../db.js";
 import * as peliculasController from "../controllers/peliculas.controller.js";
-import * as reservasController from "../controllers/reservas.controller.js";
-import { authenticateToken } from "../middlewares/auth.middleware.js";
+import entradasRouter from "./entradas.routes.js";
+import salasRouter from "./salas.routes.js";
 
 const router = Router();
+
+console.log("=== CARGANDO PELICULAS ROUTES ===");
 
 // Películas
 router.get("/films", peliculasController.obtenerPeliculasPopulares);
 router.get("/films/:id", peliculasController.obtenerPeliculaCompleta);
 
-// Butacas
-router.get("/butacas/availability", peliculasController.obtenerDisponibilidad);
-router.post(
-  "/butacas/reservar",
-  authenticateToken,
-  reservasController.reservarButaca
-);
-router.post(
-  "/butacas/confirmar/:id",
-  authenticateToken,
-  reservasController.confirmarReserva
-);
+// Butacas/Disponibilidad
+router.get("/availability", peliculasController.obtenerDisponibilidad);
 
 // Salas
-router.get("/salas", async (req, res) => {
-  try {
-    const [rows] = await pool.query("SELECT * FROM salas");
-    res.json(rows);
-  } catch (err) {
-    res.status(500).json({ error: "Error interno del servidor" });
-  }
-});
+router.use("/salas", salasRouter);
+console.log("✅ Salas router registrado");
+
+// Entradas/Reservas
+router.use("/seats", entradasRouter);
+console.log("✅ Entradas router registrado");
+
+console.log("=== PELICULAS ROUTES CARGADO ===");
 
 export default router;

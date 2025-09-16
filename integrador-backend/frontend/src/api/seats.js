@@ -1,87 +1,80 @@
-import axios from "axios";
+import api from "./axios.js";
 
-const API = import.meta.env.VITE_API_URL || "http://localhost:3000";
-
-const api = axios.create({
-  baseURL: `${API}/api/butacas`,
-  withCredentials: true,
-});
-
-const toISO = (horario) =>
-  horario instanceof Date
-    ? horario.toISOString()
-    : new Date(horario).toISOString();
-
-export const fetchAvailability = async ({ peliculaId, salaId, horario }) => {
+export const reserveSeats = async (seatData) => {
   try {
-    const { data } = await api.get("/availability", {
-      params: { peliculaId, salaId, horario: toISO(horario) },
-    });
-    console.log("Butacas ocupadas recibidas:", data); // Para debug
-    return data;
-  } catch (err) {
-    throw new Error(
-      err.response?.data?.message || "Error obteniendo disponibilidad"
-    );
+    console.log("Reservando asiento:", seatData);
+
+    const response = await api.post("/api/seats/reserve", seatData);
+
+    console.log("Respuesta de reserva:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error en reserveSeats:", error);
+
+    // Manejar diferentes tipos de errores
+    if (error.response) {
+      // Error del servidor (4xx, 5xx)
+      const errorMessage =
+        error.response.data?.error || "Error al reservar asiento";
+      throw new Error(errorMessage);
+    } else if (error.request) {
+      // Error de red
+      throw new Error("Error de conexión. Verifica tu conexión a internet.");
+    } else {
+      // Otro tipo de error
+      throw new Error("Error inesperado al reservar asiento");
+    }
   }
 };
 
-export async function reserveSeats({
-  peliculaId,
-  salaId,
-  horario,
-  fila,
-  columna,
-}) {
+export const confirmSeat = async (seatId) => {
   try {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      throw new Error("No hay token de autenticación");
-    }
+    console.log("Confirmando asiento ID:", seatId);
 
-    const { data } = await api.post(
-      "/reservar",
-      {
+    const response = await api.put(`/api/seats/confirm/${seatId}`);
+
+    console.log("Respuesta de confirmación:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error en confirmSeat:", error);
+
+    if (error.response) {
+      const errorMessage =
+        error.response.data?.error || "Error al confirmar reserva";
+      throw new Error(errorMessage);
+    } else if (error.request) {
+      throw new Error("Error de conexión. Verifica tu conexión a internet.");
+    } else {
+      throw new Error("Error inesperado al confirmar reserva");
+    }
+  }
+};
+
+export const fetchAvailability = async ({ peliculaId, salaId, horario }) => {
+  try {
+    console.log("Obteniendo disponibilidad:", { peliculaId, salaId, horario });
+
+    const response = await api.get("/api/availability", {
+      params: {
         peliculaId,
         salaId,
-        horario: toISO(horario),
-        fila: Number(fila),
-        columna: Number(columna),
-        // No enviar usuarioId, se obtiene del token en el backend
+        horario,
       },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    return data;
-  } catch (err) {
-    console.error("Error en reserveSeats:", err);
-    const serverMsg = err.response?.data?.error ?? err.response?.data?.message;
-    const message = Array.isArray(serverMsg) ? serverMsg[0] : serverMsg;
-    throw new Error(message || "Error al reservar asientos");
-  }
-}
+    });
 
-export async function confirmSeat(id) {
-  try {
-    const token = localStorage.getItem("token");
-    if (!token) throw new Error("No hay token de autenticación");
+    console.log("Disponibilidad obtenida:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error en fetchAvailability:", error);
 
-    const { data } = await api.post(
-      `/confirmar/${id}`,
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    return data;
-  } catch (err) {
-    const serverMsg = err.response?.data?.error ?? err.response?.data?.message;
-    const message = Array.isArray(serverMsg) ? serverMsg[0] : serverMsg;
-    throw new Error(message || "Error al confirmar reserva");
+    if (error.response) {
+      const errorMessage =
+        error.response.data?.error || "Error al obtener disponibilidad";
+      throw new Error(errorMessage);
+    } else if (error.request) {
+      throw new Error("Error de conexión. Verifica tu conexión a internet.");
+    } else {
+      throw new Error("Error inesperado al obtener disponibilidad");
+    }
   }
-}
+};

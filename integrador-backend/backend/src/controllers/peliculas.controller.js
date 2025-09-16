@@ -100,20 +100,36 @@ export const obtenerPeliculaCompleta = async (req, res) => {
       };
     }
 
-    // Obtener horarios - CORREGIDO: usar pool en lugar de connection
+    // Obtener horarios
+    console.log("Buscando horarios para película ID:", pelicula.id);
     const [funciones] = await pool.query(
-      `SELECT CONCAT(fecha, 'T', hora, ':00.000Z') as horario
-       FROM funciones WHERE pelicula_id = ?
-       GROUP BY fecha, hora
-       ORDER BY fecha, hora`,
+      `SELECT 
+     DATE(fecha) as fecha,
+     TIME(hora) as hora
+   FROM funciones 
+   WHERE pelicula_id = ?
+   GROUP BY DATE(fecha), TIME(hora)
+   ORDER BY DATE(fecha), TIME(hora)`,
       [pelicula.id]
     );
 
-    console.log("Horarios encontrados:", funciones.length);
+    console.log("Funciones encontradas:", funciones.length);
+    console.log("Datos completos de funciones:", funciones);
+
+    // Validar horarios antes de enviarlos
+    const horariosValidos = funciones.map((f) => {
+      const fechaStr = f.fecha.toISOString().split("T")[0]; // Solo la fecha YYYY-MM-DD
+      const horaStr = f.hora; // Ya viene como HH:MM:SS
+      const horarioCompleto = `${fechaStr}T${horaStr}.000Z`;
+
+      console.log(`Procesando: ${fechaStr} + ${horaStr} = ${horarioCompleto}`);
+      return horarioCompleto;
+    });
+    console.log("Horarios válidos:", horariosValidos);
 
     res.json({
       ...pelicula,
-      horarios: funciones.map((f) => f.horario),
+      horarios: horariosValidos,
     });
   } catch (error) {
     console.error("Error completo al obtener película:", error);
@@ -142,8 +158,8 @@ export const obtenerDisponibilidad = async (req, res) => {
     }
 
     const horarioDate = new Date(horario);
-    const fecha = horarioDate.toISOString().split("T")[0];
-    const hora = horarioDate.toTimeString().split(" ")[0];
+    const [fecha, timePart] = horarioDate.toISOString().split("T");
+    const hora = timePart.split(".")[0];
 
     const [funciones] = await pool.query(
       `SELECT id FROM funciones 
@@ -169,17 +185,22 @@ export const obtenerDisponibilidad = async (req, res) => {
   }
 };
 
-// Función auxiliar para crear funciones automáticas - CORREGIDO: usar pool
+// Función auxiliar para crear funciones automáticas
 const crearFuncionesAutomaticas = async (peliculaId) => {
   try {
-    const [salas] = await pool.query("SELECT id FROM salas LIMIT 2");
+    console.log("=== CREANDO FUNCIONES PARA PELÍCULA ID:", peliculaId, "===");
+
+    const [salas] = await pool.query("SELECT id, nombre FROM salas");
+    console.log("Salas disponibles:", salas);
+
     if (salas.length === 0) {
-      console.log("No hay salas disponibles para crear funciones");
+      console.log("❌ No hay salas disponibles para crear funciones");
       return;
     }
 
     const horarios = ["18:00", "21:00"];
     const hoy = new Date();
+    let funcionesCreadas = 0;
 
     for (let i = 0; i < 7; i++) {
       const fecha = new Date(hoy);
@@ -189,20 +210,33 @@ const crearFuncionesAutomaticas = async (peliculaId) => {
       for (const sala of salas) {
         for (const horario of horarios) {
           try {
-            await pool.query(
+            console.log(
+              `Creando función: Película ${peliculaId}, Sala ${sala.id}, Fecha ${fechaStr}, Hora ${horario}`
+            );
+
+            const [resultado] = await pool.query(
               `INSERT IGNORE INTO funciones (pelicula_id, sala_id, fecha, hora)
                VALUES (?, ?, ?, ?)`,
               [peliculaId, sala.id, fechaStr, horario]
             );
+
+            if (resultado.affectedRows > 0) {
+              funcionesCreadas++;
+              console.log(`✅ Función creada con ID: ${resultado.insertId}`);
+            } else {
+              console.log(`⚠️ Función ya existía o no se creó`);
+            }
           } catch (insertError) {
-            console.log("Error insertando función:", insertError.message);
+            console.log("❌ Error insertando función:", insertError.message);
           }
         }
       }
     }
 
-    console.log("Funciones automáticas creadas para película:", peliculaId);
+    console.log(
+      `=== RESUMEN: ${funcionesCreadas} funciones creadas para película ${peliculaId} ===`
+    );
   } catch (error) {
-    console.error("Error creando funciones:", error);
+    console.error("❌ Error creando funciones:", error);
   }
 };

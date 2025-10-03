@@ -1,27 +1,30 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
+import axios from "axios";
+import { useState } from "react";
 
 export default function RegisterPage() {
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { register, loading, error, isAuthenticated } = useAuth();
 
-  useEffect(() => {
-    if (isAuthenticated) {
+  const handleSubmit = async (values, { setSubmitting }) => {
+    setLoading(true);
+    setError("");
+    try {
+      await axios.post("http://localhost:3000/auth/register", {
+        username: values.username,
+        email: values.email,
+        password: values.password,
+      });
+      console.log("Usuario creado exitosamente");
       navigate("/");
-    }
-  }, [isAuthenticated, navigate]);
-
-  const handleSubmit = async (values) => {
-    const result = await register({
-      nombre: values.username,
-      email: values.email,
-      password: values.password,
-    });
-
-    if (result.success) {
-      navigate("/login");
+    } catch (err) {
+      setError("Error al registrar usuario");
+      console.error("Error en el registro", err);
+    } finally {
+      setLoading(false);
+      setSubmitting(false);
     }
   };
 

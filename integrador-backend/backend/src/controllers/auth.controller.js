@@ -1,16 +1,19 @@
-import {validateLoginUser} from "../helpers/validations";
-import {User} from "../models/User";
+import { validateLoginUser } from "../helpers/validations.js";
+import { User } from "../models/User.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+
 export const registerUser = async (req, res) => {
-  const {username, email, password} = req.body;
+  const { username, email, password } = req.body;
 
   const user = await User.findOne({
-    where: email,
+    where: {
+      email: email,
+    },
   });
 
   if (user) {
-    return res.status(400).json({message: "User already exists"});
+    return res.status(400).json({ message: "User already exists" });
   }
 
   const saltRounds = 10;
@@ -31,33 +34,35 @@ export const loginUser = async (req, res) => {
   const result = validateLoginUser(req.body);
 
   if (result.error) {
-    return res.status(400).json({message: result.message});
+    return res.status(400).json({ message: result.message });
   }
 
-  const {email, password} = req.body;
+  const { email, password } = req.body;
 
   const user = await User.findOne({
-    where: {email},
+    where: {
+      email,
+    },
   });
 
   if (!user) {
-    return res.status(400).json({message: "Usuario o contraseña inválidos"});
+    return res.status(400).json({ message: "Usuario o contraseña inválidos" });
   }
 
   const comparison = await bcrypt.compare(password, user.password);
 
   if (!comparison) {
-    return res.status(400).json({message: "Usuario o contraseña inválidos"});
+    return res.status(400).json({ message: "Email y/o contraseña incorrecta" });
   }
 
-  const secretKey = laureanojuarez;
+  const secretKey = "laureanojuarez";
 
   const token = jwt.sign(
     {
       email,
     },
     secretKey,
-    {expiresIn: "1h"}
+    { expiresIn: "1h" }
   );
 
   res.json(token);

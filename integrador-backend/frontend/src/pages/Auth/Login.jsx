@@ -1,22 +1,30 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Field, ErrorMessage, Formik } from "formik";
-import { useEffect } from "react";
-import { useAuth } from "../../context/AuthContext";
+import { useState } from "react";
+import axios from "axios";
 
 export default function LoginPage() {
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { login, loading, error, isAuthenticated } = useAuth();
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigate("/");
-    }
-  }, [isAuthenticated, navigate]);
+  const handleSubmit = async (values, { setSubmitting }) => {
+    setLoading(true);
+    setError("");
+    try {
+      const res = await axios.post("http://localhost:3000/auth/login", {
+        email: values.email,
+        password: values.password,
+      });
 
-  const handleSubmit = async (values) => {
-    const result = await login(values);
-    if (result.success) {
+      localStorage.setItem("token", res.data.token);
       navigate("/");
+    } catch (err) {
+      setError("Error al iniciar sesion");
+      console.error("Error en el inicio de sesion", err);
+    } finally {
+      setLoading(false);
+      setSubmitting(false);
     }
   };
 

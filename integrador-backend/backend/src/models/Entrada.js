@@ -1,7 +1,7 @@
-import { sequelize } from "../db";
+import { sequelize } from "../db.js";
 import { DataTypes } from "sequelize";
-import { User } from "./User";
-import { Funcion } from "./Funcion";
+import { User } from "./User.js";
+import { Funcion } from "./Funcion.js";
 
 export const Entrada = sequelize.define("entrada", {
   titulo: {

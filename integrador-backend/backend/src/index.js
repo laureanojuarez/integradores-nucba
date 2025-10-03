@@ -1,11 +1,21 @@
 import express from "express";
-import {sequelize} from "./db.js";
+import { sequelize } from "./db.js";
+import cors from "cors";
+
+import "./models/Entrada.js";
+import "./models/Funcion.js";
+import "./models/Pelicula.js";
+import "./models/Sala.js";
 import "./models/User.js";
 
 const app = express();
+const PORT = process.env.PORT || 3000;
+app.use(cors());
 app.use(express.json());
 
-const PORT = process.env.PORT || 3000;
+// Rutas
+import authRoutes from "./routes/auth.routes.js";
+app.use("/auth", authRoutes);
 
 try {
   await sequelize.sync();

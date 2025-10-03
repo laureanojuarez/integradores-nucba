@@ -1,25 +1,21 @@
-import api from "./axios.js";
+import axios from "axios";
 
-export const fetchFilms = async () => {
+const TOKEN_API =
+  "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5NTE0NWFiZjY5NTcwMWZlYTU3ZTQyMTFmNTNkYzk4ZSIsIm5iZiI6MTc1Nzg0NzQwMC44MTMsInN1YiI6IjY4YzY5ZjY4YTA2NTNhNWVjOGEwZjI1YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Iu5UE0aeQStSSNUtqdn32TdATWQBy4KvP7hnWQz_X6U";
+
+const getPopularMovies = async () => {
   try {
-    const response = await api.get("/api/films");
+    const response = axios.get("https://api.themoviedb.org/3/movie/popular", {
+      headers: {
+        Authorization: `Bearer ${TOKEN_API}`,
+        Accept: "application/json",
+      },
+    });
+    console.log(response.data);
     return response.data;
   } catch (error) {
-    console.error("Error fetching films:", error);
-    throw new Error("Error al cargar películas");
+    console.error("Error fetching popular movies:", error);
   }
 };
 
-export const fetchFilmById = async (id) => {
-  try {
-    const response = await api.get(`/api/films/${id}`);
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching film by id:", error);
-
-    if (error.response?.status === 404) {
-      throw new Error("Película no encontrada");
-    }
-    throw new Error("Error al cargar película");
-  }
-};
+getPopularMovies();

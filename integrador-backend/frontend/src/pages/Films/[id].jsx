@@ -1,12 +1,8 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useMemo, useState } from "react";
-import { Button } from "../../components/UI/Button";
-import { Seats } from "../../components/Seats/Seats";
-import { confirmSeat, fetchAvailability, reserveSeats } from "../../api/seats";
-import { fetchFilmById } from "../../api/films";
-import { CartTab } from "../../components/CartTab/CartTab";
+import {Button} from "../../components/UI/Button";
+import {Seats} from "../../components/Seats/Seats";
+import {CartTab} from "../../components/CartTab/CartTab";
 
-export default function FilmDetail({ film }) {
+export default function FilmDetail({film}) {
   return (
     <div className="mt-6 space-y-6">
       <header className="space-y-2">
@@ -159,7 +155,7 @@ export default function FilmDetail({ film }) {
   );
 }
 
-function Chip({ active, onClick, children }) {
+function Chip({active, onClick, children}) {
   const base =
     "rounded px-6 py-2 text-xs cursor-pointer transition-colors focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-neutral-500";
   const state = active
